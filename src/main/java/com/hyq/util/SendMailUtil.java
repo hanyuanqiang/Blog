@@ -24,12 +24,12 @@ public class SendMailUtil {
     public static final int PORT = 25;
 
     /*public static final String HOST = "smtp.139.com";
-    public static final String SENDER = "15957196210@139.com";//此处需要与host相同的网站
-    public static final String SENDERPWD = "8235143_hyq";  		//使用客户端授权密码*/
+    public static final String SENDER = "***@139.com";//此处需要与host相同的网站
+    public static final String SENDERPWD = "***";  		//使用客户端授权密码*/
 
     public static final String HOST = "smtp.sina.com";
     public static final String SENDER = "principle28@sina.com";//此处需要与host相同的网站
-    public static final String SENDERPWD = "8235143_hyq";  		//使用客户端授权密码
+    public static final String SENDERPWD = "password";  		//使用客户端授权密码
 
 
     /**
