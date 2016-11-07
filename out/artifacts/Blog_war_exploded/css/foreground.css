@@ -1,0 +1,168 @@
+body{
+    background-image: url("../images/fore_back.png");
+    background-attachment: fixed;
+}
+
+.index{
+    width:1300px;
+    margin:0 auto;
+    //border: 1px #00dc23 dashed;
+}
+.center{
+    overflow:hidden;
+    margin-top: 10px;
+    width: 1300px;
+    min-height: 830px;
+}
+.head{
+    color: wheat;
+    height:170px;
+    width: 1300px;
+    //background: url("../images/head_background.png");
+    background-color: #011f16;
+    border: 1px blue solid;
+}
+
+.left{
+    margin-bottom:-9999px;
+    padding-bottom:9999px;
+    color: gray;
+    border: 1px green solid;
+    background-color: #1f1f1f;
+    width:1060px;
+    float: left;
+}
+
+.right{
+    margin-bottom:-9999px;
+    padding-bottom:9999px;
+    color: gray;
+    float: left;
+    width: 230px;
+    height: auto;
+    margin-left: 8px;
+    background-color: #1f1f1f;
+    border: 1px red solid;
+}
+
+.footer{
+    border: 1px solid whitesmoke;
+    margin-top: 10px;
+    color: white;
+    background-color: #2E2D3C;
+    width: 1300px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.index .head .p1{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 30px 0px 0px 40px;
+    height: 92px;
+    //border: 1px whitesmoke solid;
+    font-size: 25px;
+    font-family: "华文楷体";
+}
+
+.index .head .p1 span{
+    margin-left: 160px;
+    font-size: 15px;
+    font-family: "华文楷体";
+}
+
+.index .head .d1{
+    padding-top: 10px;
+    height: 53px;
+    //border: 1px rebeccapurple solid;
+}
+
+.index .head .d1 .dd1{
+    float: right;
+    margin-top: 33px;
+    margin-right: 5px;
+}
+
+.index .head .d1 .dd1 input{
+    background-color:transparent;
+    border:whitesmoke 1px solid;
+}
+
+.index .head .d1 .dd1 .s_field{
+    width: 180px;
+}
+
+
+.index .head .d1 .dd2{
+    padding-top: 38px;
+}
+
+.index .head .d1 .dd2 #menu {
+    font-size:18px; /* 设置文字大小和字体样式 */
+}
+.index .head .d1 .dd2 #menu, #menu li {
+    //border: 1px white solid;
+    list-style:none; /* 将默认的列表符号去掉 */
+    padding-left: 10px; /* 将默认的内边距去掉 */
+    padding-top: 10px; /* 将默认的外边距去掉 */
+    display: inline;
+}
+
+.index .head .d1 .dd2 #menu li a:hover{
+    text-decoration:none; /* 去掉下划线 */
+    color:#fff; /* 变换文字颜色 */
+    font-family: "";
+}
+
+/*personInfoShow.jsp*/
+
+#calendar a{
+    text-decoration:none;
+}
+
+.ui-state-active{
+    color: white;
+}
+
+.ui-state-highlight{
+    color: yellow;
+}
+#calendar-table tr{
+    height: 25px;
+}
+
+#calendar-table th, td{
+    text-align:center;
+}
+
+.personInfo .div2{
+    height: 170px;
+    width: 170px;
+    border: 2px #266c4e solid;
+}
+
+.personInfo .div3{
+    margin-top: 30px;
+    height: 220px;
+}
+
+.personInfo .img1{
+    margin-top: 15px;
+    width: 140px;
+    height:140px;
+}
+
+.personInfo .p1{
+    border: 0px bisque solid;
+    margin-top: 5px;
+}
+
+/*about_me.jsp*/
+.leftlabel{
+    text-align: right;
+}
+
+.leftlabel span{
+    color: whitesmoke
+}

@@ -1,0 +1,245 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            使用servlet3.0进行文件上传
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Servlet&jsp</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>4</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>首先需要定义一个文件进行文件上传的页面upload.jsp，具体代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="cs hljs" codemark="1">&lt;%@ page language=<span class="hljs-string">"java"</span> contentType=<span class="hljs-string">"text/html; charset=UTF-8"</span>
+    pageEncoding=<span class="hljs-string">"UTF-8"</span>%&gt;
+&lt;!DOCTYPE html PUBLIC <span class="hljs-string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="hljs-string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=<span class="hljs-string">"Content-Type"</span> content=<span class="hljs-string">"text/html; charset=UTF-8"</span>&gt;
+&lt;title&gt;文件上传&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+	&lt;form method=<span class="hljs-string">"post"</span> action=<span class="hljs-string">"${pageContext.request.contextPath }/upload"</span> enctype=<span class="hljs-string">"multipart/form-data"</span>&gt;
+		&lt;span&gt;文件名：&lt;/span&gt;&lt;input type=<span class="hljs-string">"text"</span> id=<span class="hljs-string">"name"</span> name=<span class="hljs-string">"name"</span>&gt;
+		&lt;p&gt;&lt;/p&gt;
+		&lt;span&gt;选择文件：&lt;/span&gt;&lt;input type=<span class="hljs-string">"file"</span> name=<span class="hljs-string">"file"</span>&gt;
+		&lt;p&gt;&lt;/p&gt;
+		&lt;input type=<span class="hljs-string">"submit"</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"上传"</span>&gt;
+	&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><span></span><p>然后定义一个处理文件上传的servlet类：UploadServlet.java，具体代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.servlet;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Collection;
+
+<span class="hljs-keyword">import</span> javax.servlet.ServletException;
+<span class="hljs-keyword">import</span> javax.servlet.annotation.MultipartConfig;
+<span class="hljs-keyword">import</span> javax.servlet.annotation.WebServlet;
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServlet;
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;
+<span class="hljs-keyword">import</span> javax.servlet.http.Part;
+
+<span class="hljs-annotation">@WebServlet</span>(name=<span class="hljs-string">"upload"</span>,urlPatterns=<span class="hljs-string">"/upload"</span>)
+<span class="hljs-annotation">@MultipartConfig</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UploadServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span></span>{
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+	<span class="hljs-annotation">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>{
+		<span class="hljs-keyword">this</span>.doPost(request, response);
+	}
+	
+	<span class="hljs-annotation">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>{
+		request.setCharacterEncoding(<span class="hljs-string">"utf-8"</span>);
+		response.setContentType(<span class="hljs-string">"text/plain;charset=utf-8"</span>);
+		
+		String name = request.getParameter(<span class="hljs-string">"name"</span>);
+		System.out.println(<span class="hljs-string">"普通的name参数为："</span>+name);
+		
+		Part part = request.getPart(<span class="hljs-string">"file"</span>);
+		
+		<span class="hljs-comment">//下面两种情况均表示用户没有选择文件</span>
+		<span class="hljs-keyword">if</span>(part==<span class="hljs-keyword">null</span>||part.getSubmittedFileName()==<span class="hljs-string">""</span>){
+			System.out.println(<span class="hljs-string">"文件为空"</span>);
+			System.out.println(<span class="hljs-string">"---------------------------------------"</span>);
+			<span class="hljs-keyword">return</span>;
+		}
+		String oldFileName = part.getSubmittedFileName();
+		System.out.println(<span class="hljs-string">"原文件名："</span>+oldFileName);
+		System.out.println(<span class="hljs-string">"上传文件的类型为："</span>+part.getContentType());
+		System.out.println(<span class="hljs-string">"上传文件的大小为："</span>+part.getSize()+<span class="hljs-string">"(byte)"</span>);
+		Collection&lt;String&gt; headerNames = part.getHeaderNames();
+		<span class="hljs-keyword">for</span>(String headerName : headerNames){
+			System.out.println(headerName+<span class="hljs-string">" --&gt; "</span>+part.getHeader(headerName));
+		}
+		
+		<span class="hljs-comment">//对文件进行重命名</span>
+		StringBuffer newFileName = <span class="hljs-keyword">new</span> StringBuffer(System.currentTimeMillis()+<span class="hljs-string">""</span>);
+		<span class="hljs-comment">//如果原文件有后缀名，则把后缀名追加到新文件名上</span>
+		<span class="hljs-keyword">if</span>(oldFileName.lastIndexOf(<span class="hljs-string">"."</span>)!=-<span class="hljs-number">1</span>){
+			newFileName.append(oldFileName.substring(oldFileName.lastIndexOf(<span class="hljs-string">"."</span>)));
+		}
+		
+		part.write(getServletContext().getRealPath(<span class="hljs-string">"/files/"</span>)+newFileName);
+		System.out.println(getServletContext().getRealPath(<span class="hljs-string">"/files/"</span>)+newFileName);
+		System.out.println(<span class="hljs-string">"---------------------------------------"</span>);
+	}
+}
+</code></pre><p></p><p>然后进行三次测试，其中第一次上传文件为空，第二次上传的文件没有后缀名，第三次上传一张图片，具体控制台输出结果如下：</p><p><img src="/blog/files/b4acbda3-a39b-4505-aed3-7342487ef8f7.png" alt="搜狗截图20161022173302" style="max-width:100%;"></p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-22 17:00:44.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

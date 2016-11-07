@@ -1,0 +1,222 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            Java8中新增的有关集合的操作
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Java基础</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>4</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p><font size="5" color="#008000">1、使用Lambda表达式遍历集合和Iterator</font></p><p>java8为Iterable接口新增了一个forEach(Consumer action)默认方法，该方法所需参数的类型是一个函数式接口，而Iterable接口是Collection接口的父接口，因此Collection集合也可直接调用该方法。看下面实例：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.collection;
+
+<span class="hljs-keyword">import</span> java.util.Collection;
+<span class="hljs-keyword">import</span> java.util.HashSet;
+<span class="hljs-keyword">import</span> java.util.Iterator;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CollectionEach</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		Collection&lt;String&gt; books = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+		books.add(<span class="hljs-string">"设计模式"</span>);
+		books.add(<span class="hljs-string">"算法导论"</span>);
+		books.add(<span class="hljs-string">"Think in java"</span>);
+		books.forEach(book -&gt; System.out.println(<span class="hljs-string">"遍历元素："</span>+book));
+		System.out.println();
+		Iterator&lt;String&gt; it = books.iterator();
+		it.forEachRemaining(obj -&gt; System.out.println(<span class="hljs-string">"遍历Iterator："</span>+obj));
+	}
+}</code></pre><p>控制台输出：</p><p></p><p><img src="/blog/files/84e3eee5-9398-4a04-b8f9-8734fa52c10d.png" alt="搜狗截图20161024134454" style="max-width:100%;"></p><p><br></p><p><font color="#008000" size="5">2、使用Java8新增的Predicate操作集合</font></p><p>Java8为Collection集合新增了一个removeIf(Predicate filter)方法，该方法将会批量删除符合filter条件的所有元素。该方法需要一个Predicate(谓词)对象作为参数，Predicate也是函数式接口，因此使用Lambda表达式作为参数。具体看下面示例：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.collection;
+
+<span class="hljs-keyword">import</span> java.util.Collection;
+<span class="hljs-keyword">import</span> java.util.HashSet;
+<span class="hljs-keyword">import</span> java.util.function.Predicate;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PredicateTest</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		Collection&lt;String&gt; books1 = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+		books1.add(<span class="hljs-string">"设计模式"</span>);
+		books1.add(<span class="hljs-string">"算法导论"</span>);
+		books1.add(<span class="hljs-string">"Think in java"</span>);
+		books1.add(<span class="hljs-string">"Spring MVC学习指南"</span>);
+		books1.add(<span class="hljs-string">"Effective java"</span>);
+		books1.add(<span class="hljs-string">"java 语言程序设计"</span>);
+		<span class="hljs-comment">//复制books1中的所有元素到books2中</span>
+		Collection&lt;String&gt; books2 = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+		books2.addAll(books1);
+		
+		<span class="hljs-comment">//删除长度小于10的元素</span>
+		books1.removeIf(ele -&gt; ele.length()&lt;<span class="hljs-number">10</span>);
+		books1.forEach(ele -&gt; System.out.println(ele));
+		System.out.println(<span class="hljs-string">"-----------------"</span>);	<span class="hljs-comment">//分割线</span>
+		
+		<span class="hljs-comment">/*下面这两种需求如果按照以前的编程方式需要两个方法，现在采用Predicate只需要一个方法*/</span>
+		System.out.println(<span class="hljs-string">"包含“设计”的书有："</span>+calAll(books2 , book -&gt; book.contains(<span class="hljs-string">"设计"</span>))+<span class="hljs-string">"本"</span>);
+		System.out.println(<span class="hljs-string">"包含“java”的书有："</span>+calAll(books2 , book -&gt; book.contains(<span class="hljs-string">"java"</span>))+<span class="hljs-string">"本"</span>);
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calAll</span><span class="hljs-params">(Collection&lt;String&gt; books,Predicate&lt;String&gt; p)</span></span>{
+		<span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">for</span>(String book : books){
+			<span class="hljs-keyword">if</span>(p.test(book)){
+				total++;
+			}
+		}
+		<span class="hljs-keyword">return</span> total;
+	}
+}
+</code></pre><p>控制台输出如下：</p><p><img src="/blog/files/e9cd84ee-ba88-4bf7-a933-3011547b1a9b.png" alt="搜狗截图20161024141315" style="max-width:100%;"></p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-24 13:16:47.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

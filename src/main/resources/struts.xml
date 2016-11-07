@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.action.extension" value="action," />
+
+    <package name="blog" namespace="/" extends="struts-default">
+
+        <interceptors>
+            <interceptor name="myInterceptor" class="com.hyq.action.MyInterceptor"/>
+            <interceptor-stack name="myDefaultInterceptor">
+                <interceptor-ref name="myInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myDefaultInterceptor"></default-interceptor-ref>
+
+        <global-results>
+            <result name="goLogin">/background/login.jsp</result>
+            <result name="syserror" type="chain">processingError</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="syserror"></exception-mapping>
+        </global-exception-mappings>
+
+
+
+        <action name="user_*" class="com.hyq.action.UserAction" method="{1}">
+            <result name="success">/background/main.jsp</result>
+            <result name="loginError">/background/login.jsp</result>
+            <result name="mainPage" type="redirectAction">article_backlist</result>
+            <result name="about_me">/foreground/index.jsp</result>
+            <result name="exit">/background/login.jsp</result>
+        </action>
+
+        <action name="type_*" class="com.hyq.action.TypeAction" method="{1}">
+            <result name="success">/background/main.jsp</result>
+            <result name="list" type="redirectAction">type_backlist.action</result>
+        </action>
+
+        <action name="article_*" class="com.hyq.action.ArticleAction" method="{1}">
+            <result name="success">/background/main.jsp</result>
+            <result name="list" type="redirectAction">article_backlist</result>
+            <result name="fore-index">/foreground/index.jsp</result>
+
+        </action>
+
+        <action name="comment_*" class="com.hyq.action.CommentAction" method="{1}">
+            <result name="save" type="chain">article_foreDetail</result>
+            <result name="delete" type="chain">article_backdetail</result>
+        </action>
+
+        <action name="leaveWords_*" class="com.hyq.action.LeaveWordsAction" method="{1}">
+            <result name="list">/background/main.jsp</result>
+            <result name="deleteSuccess" type="redirectAction">leaveWords_backlist.action</result>
+        </action>
+
+        <action name="wisdom_*" class="com.hyq.action.WisdomAction" method="{1}">
+            <result name="list">/background/main.jsp</result>
+            <result name="success" type="redirectAction">wisdom_backlist.action</result>
+        </action>
+
+        <action name="sess_*" class="com.hyq.action.SessListenerAction" method="{1}">
+        </action>
+
+        <action name="upload" class="com.hyq.action.UploadFile">
+        </action>
+
+        <action name="system_*" class="com.hyq.action.SystemAction" method="{1}">
+            <result name="success" type="redirectAction">article_backlist</result>
+        </action>
+
+        <action name="processingError" class="com.hyq.action.ErrorAction" method="processingError">
+
+        </action>
+
+        <action name="*">
+            <result>/error.jsp</result>
+        </action>
+
+    </package>
+</struts>

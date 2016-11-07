@@ -1,0 +1,374 @@
+
+
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>菜鸟韩的博客</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link type="text/css" rel="stylesheet" href="/blog/css/foreground.css" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/calendar/js/jquery.min.js"></script>
+    <script src="/blog/calendar/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.dark.css">
+
+    <script>
+        function searchEvent(){
+            var searchContent = $("#articleContent").val();var typeId = $("#typeId").val();
+            window.location.href = "/blog/article_foreList.action?s_article.content="+searchContent;
+        }
+
+        function getTime(){
+            var d = new Date();
+            var my_hours=d.getHours();
+            var my_minutes=d.getMinutes();
+            var my_seconds=d.getSeconds();
+            if(my_hours<10){
+                my_hours="0"+my_hours
+            }
+            if(my_minutes<10){
+                my_minutes="0"+my_minutes
+            }
+            if(my_seconds<10){
+                my_seconds="0"+my_seconds
+            }
+            return my_hours+"&nbsp;:&nbsp;"+my_minutes+"&nbsp;:&nbsp;"+my_seconds;
+        }
+
+        function setTime(){
+            $("#time").html(getTime());
+        }
+
+        window.setInterval(setTime,1000);
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var speed = 1200;//滚动速度
+            var h=$(document).height();     //获取文档总高度
+            //回到顶部
+            $("#toTop").click(function () {
+                $('html,body').animate({
+                            scrollTop: '0px'
+                        },
+                        speed);
+            });
+            //回到底部
+
+            $("#toBottom").click(function () {
+                $('html,body').animate({
+                            scrollTop: h+'px'
+                        },
+                        speed);
+            });
+
+            //监听鼠标滚动事件，显示"回到顶部"和"回到底部"
+            $(window).scroll(function() {
+                $("#scroll").removeAttr("hidden");
+                clearTimeout(timeout);  //多次滚动时清除上次的setTimeout函数
+                timeout = setTimeout(hiddenScroll,2000);    //每次滚动完成3秒后"回到顶部"和"回到底部"隐藏
+            });
+
+
+        });
+        var timeout;
+        //隐藏"回到顶部"和"回到底部"
+        function hiddenScroll(){
+            $("#scroll").attr("hidden",true);
+        }
+
+    </script>
+
+    <style type="text/css">
+        #scroll {
+            position:fixed; top:400px; right:60px;
+        }
+        .scrollItem {
+            padding: 0px;
+            color: #00CCFF;
+            width:20px;
+            height:84px;
+            border:#e1e1e1 1px solid;
+            cursor:pointer;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="scroll" hidden>
+    <div class="scrollItem" id="toTop">回到顶部</div>
+    <p style="height: 5px;margin: 0px;"></p>
+    <div class="scrollItem" id="toBottom">回到底部</div>
+</div>
+
+<div class="index">
+    <div class="head">
+        <span id="time" style="float: right;margin: 5px 10px;font-size: 17px;"></span>
+        <p class="p1">
+            Pareto principle，也称为二八定律或80/20法则
+        </p>
+        <div class="d1">
+            <div class="dd1">
+                <input type="text" class="s_field" name="s_article.content" id="articleContent" value="" onkeydown="if(event.keyCode==13) searchEvent()">
+                <input type="button" class="s_btn" value="搜索" onclick="searchEvent()">
+            </div>
+            <div class="dd2">
+                <ul id="menu">
+                    <li><a href="/blog/">首页</a></li>
+                    <li><a href="/blog/article_foreList.action">博文目录</a></li>
+                    <li><a href="/blog/user_about_me.action">关于我</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+
+        <div class="left">
+            <div>
+                
+
+
+
+
+<script>
+    function checkForm(){
+        var commentContent = $("#commentContent").val();
+        if(!commentContent){
+            $("#errorMsg").text("请输入评论内容！");
+            $("#commentContent").focus();
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+
+<div>
+    
+    
+        <p style="height: 20px;"></p>
+    
+    <div class="over-view"  style="padding:0px 20px;">
+        <p class="title">
+        <h3 style="text-align:center;margin-top: 0px;">
+            <strong>
+                字符串工具类：StringUtil.java判断字符串是否为空
+            </strong>
+        </h3>
+        <p style="text-align: center;">
+            <span>类型：</span>
+            <span>util类汇总</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>浏览：</span>
+            <span>
+                0
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>来源：</span>
+            <span>原创</span>
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        </p>
+        <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.util;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringUtil</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">(String str)</span></span>{
+		<span class="hljs-keyword">if</span>(<span class="hljs-string">""</span>.equals(str)|| str==<span class="hljs-keyword">null</span>){
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+		}<span class="hljs-keyword">else</span>{
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+		}
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isNotEmpty</span><span class="hljs-params">(String str)</span></span>{
+		<span class="hljs-keyword">return</span> !isEmpty(str);
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		String string1 = <span class="hljs-string">""</span>;
+		System.out.println(<span class="hljs-string">"string1是否为空："</span>+isEmpty(string1));
+		String string2 = <span class="hljs-keyword">null</span>;
+		System.out.println(<span class="hljs-string">"string2是否为空："</span>+isEmpty(string2));
+		String string3 = <span class="hljs-string">"随便"</span>;
+		System.out.println(<span class="hljs-string">"string3是否为空："</span>+isEmpty(string3));
+	}
+	
+}
+</code></pre><p>输出结果如下：</p><p><img src="/blog/files/c6cbb07b-e340-439c-9a5e-ae66ad22bd1b.png" alt="搜狗截图20161022100729" style="max-width:100%;"></p><p><br></p></p>
+        </p>
+        <p style="text-align: right;">
+            <span>发布日期：</span>
+            <span>2016-10-22 10:08:06.0</span>
+        </p>
+    </div>
+
+    <div id="writeComment" style="margin-top: 60px;">
+        <div style="margin: 0px 27px;">
+            <form action="/blog/comment_save.action" method="post" onsubmit="return checkForm()">
+                <input type="hidden" name="comment.article.id" value="36">
+                <p style="margin-bottom: 2px;">输入评论：</p>
+                <textarea style="width: 430px;height: 120px;background-color: transparent;border: solid 2px #73737a;margin-bottom: -7px;" name="comment.content" id="commentContent"></textarea>
+                <input type="submit" class="btn-primary" value="评论" style="margin-left: 10px;">
+                <span id="errorMsg" style="color: red;"></span>
+            </form>
+        </div>
+    </div>
+    <div id="showComment">
+        <div style="padding: 0px 25px;margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        <div class="right">
+            <div style="padding: 20px 7px;">
+                
+
+
+
+
+
+<div class="personInfo">
+    <div align="center" class="div1">
+        <div style="" class="div2">
+            <img src="/blog/files/65aaebe3-1dbe-4cdd-b26b-c6ca12ab6c00.png" class="img1"/>
+        </div>
+    </div>
+    <p style="" align="center" class="p1">
+        <a href="/blog/user_about_me.action" style="text-decoration: none;">挪威司机</a>
+    </p>
+    <div style="border-top:1px dashed #cccccc;height: 1px;overflow:hidden;margin: 5px 20px;"></div>
+    <div class="div3">
+        <div id="calendar"></div>
+        <script>
+            $('#calendar').datepicker({
+                inline: true,
+                firstDay: 1,
+                showOtherMonths: true,
+                dayNamesMin: ['日', '一', '二', '三', '四', '五', '六']
+            });
+        </script>
+    </div>
+    <p style="margin-top: 20px;"></p>
+    <div>
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/博客分类.png">&nbsp;博文分类
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=7" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Java基础&nbsp;(8)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=8" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            数据结构和算法&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=9" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Spring相关&nbsp;(5)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=10" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            学习网站收集&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=11" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            util类汇总&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=12" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Servlet&jsp&nbsp;(2)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=13" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            一些感想&nbsp;(0)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=14" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            mysql相关&nbsp;(0)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/日历16.png">&nbsp;博文归档
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-11-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年11月&nbsp;(2)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-10-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年10月&nbsp;(24)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright &copy; 2016 挪威司机写字的地方</p>
+    </div>
+</div>
+<script src="/blog/js/jquery-2.2.1.js"></script>
+<script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

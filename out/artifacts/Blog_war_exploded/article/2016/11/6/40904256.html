@@ -1,0 +1,423 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            Mybatis基础 —— 动态SQL
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>MyBatis</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>0</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p class="cye-lm-tag">MyBatis 的强大特性之一便是它的动态 SQL，利用动态 SQL 这一特性可以彻底摆脱根据不同条件拼接 SQL 语句的痛苦。</p><p class="cye-lm-tag">通常使用动态 SQL 不可能是独立的一部分,MyBatis 当然使用一种强大的动态 SQL 语言来改进这种情形,这种语言可以被用在任意的 SQL 映射语句中。</p><p class="cye-lm-tag">动态 SQL 元素和使用 JSTL 或其他类似基于 XML 的文本处理器相似。在 MyBatis 之前的版本中,有很多的元素需要来了解。MyBatis 3 大大提升了它们,现在用不到原先一半的元素就可以了。MyBatis 采用功能强大的基于 OGNL 的表达式来消除其他元素。</p><ul><li>if</li><li>choose (when, otherwise)</li><li>trim (where, set)</li><li>foreach</li></ul><p class="cye-lm-tag">&nbsp;废话不多说，下面直接贴代码：</p><p class="cye-lm-tag">1、首先是实体类</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="java hljs cye-lm-tag" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.model;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">Student</span> </span>{
+
+	<span class="hljs-keyword cye-lm-tag">private</span> Integer id;
+	<span class="hljs-keyword cye-lm-tag">private</span> String name;
+	<span class="hljs-keyword cye-lm-tag">private</span> Integer age;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">()</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-comment cye-lm-tag">// TODO Auto-generated constructor stub</span>
+	}
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">(Integer id, String name, Integer age)</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-keyword cye-lm-tag">this</span>.id = id;
+		<span class="hljs-keyword cye-lm-tag">this</span>.name = name;
+		<span class="hljs-keyword cye-lm-tag">this</span>.age = age;
+	}
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">(String name, Integer age)</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-keyword cye-lm-tag">this</span>.name = name;
+		<span class="hljs-keyword cye-lm-tag">this</span>.age = age;
+	}
+
+	<span class="hljs-annotation cye-lm-tag">@Override</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> String <span class="hljs-title cye-lm-tag">toString</span><span class="hljs-params cye-lm-tag">()</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">return</span> <span class="hljs-string cye-lm-tag">"Student [id="</span> + id + <span class="hljs-string cye-lm-tag">", name="</span> + name + <span class="hljs-string cye-lm-tag">", age="</span> + age + <span class="hljs-string cye-lm-tag">"]"</span>;
+	}
+	
+	<span class="hljs-comment cye-lm-tag">/**
+	 * 这里省略了getter和setter方法
+	 */</span>
+}
+</code></pre><p class="cye-lm-tag">2、接口类StudentMapper.java</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.mappers;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.List;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.Map;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">interface</span> <span class="hljs-title cye-lm-tag">StudentMapper</span> </span>{
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> Student <span class="hljs-title cye-lm-tag">findById</span><span class="hljs-params cye-lm-tag">(Integer id)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试if语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find</span><span class="hljs-params cye-lm-tag">(Student s_student)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试if语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find2</span><span class="hljs-params cye-lm-tag">(Map&lt;String, Object&gt; map)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试choose, when, otherwise</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find3</span><span class="hljs-params cye-lm-tag">(Student s_student)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试where语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find4</span><span class="hljs-params cye-lm-tag">(Student s_student)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试trim语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find5</span><span class="hljs-params cye-lm-tag">(Student s_student)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试trim语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">int</span> <span class="hljs-title cye-lm-tag">update</span><span class="hljs-params cye-lm-tag">(Student student)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//测试set语句</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">int</span> <span class="hljs-title cye-lm-tag">update2</span><span class="hljs-params cye-lm-tag">(Student student)</span></span>;
+}
+</code></pre><p class="cye-lm-tag">3、用于接口实现的xml配置文件</p><pre style="max-width: 100%;"><code class="markdown hljs" codemark="1"><span class="xml cye-lm-tag"><span class="hljs-pi cye-lm-tag">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span>
+<span class="xml cye-lm-tag"><span class="hljs-doctype cye-lm-tag">&lt;!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span>
+<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">mapper</span> <span class="hljs-attribute cye-lm-tag">namespace</span>=<span class="hljs-value cye-lm-tag">"com.hyq.mappers.StudentMapper"</span>&gt;</span></span>
+
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">resultMap</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">id</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"id"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"id"</span>/&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">result</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"name"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"name"</span>/&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">result</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"age"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"age"</span>/&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">resultMap</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"find"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student where id&gt;0
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+			and age=#{age}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+			and name like #{name}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"find2"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Map"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student where id&gt;0
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+			and age=#{age}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+			and name like #{name}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"start!=null and size!=null"</span>&gt;</span></span>
+			limit #{start},#{size}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"find3"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student where id&gt;0
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">choose</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">when</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+				and name like #{name}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">when</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">when</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+				and age=#{age}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">when</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">otherwise</span>&gt;</span></span>
+				and id=1
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">otherwise</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">choose</span>&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"find4"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">where</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+				name like #{name}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+				and age=#{age}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">where</span>&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"find5"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">trim</span> <span class="hljs-attribute cye-lm-tag">prefix</span>=<span class="hljs-value cye-lm-tag">"where"</span> <span class="hljs-attribute cye-lm-tag">prefixOverrides</span>=<span class="hljs-value cye-lm-tag">"or|and"</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+				and name like #{name}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+				and age=#{age}
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">trim</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-comment cye-lm-tag">&lt;!-- 
+			prefix：前缀　　　　　　
+　　			prefixoverride：去掉第一个and或者是or
+		 --&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">update</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"update"</span>&gt;</span></span>
+		update t_student
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">trim</span> <span class="hljs-attribute cye-lm-tag">prefix</span>=<span class="hljs-value cye-lm-tag">"set"</span> <span class="hljs-attribute cye-lm-tag">suffix</span>=<span class="hljs-value cye-lm-tag">""</span> <span class="hljs-attribute cye-lm-tag">suffixOverrides</span>=<span class="hljs-value cye-lm-tag">","</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+				name=#{name},
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+				age=#{age},
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">trim</span>&gt;</span></span>
+		where id=#{id}
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">update</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">update</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"update2"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Student"</span>&gt;</span></span>
+		update t_student
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">set</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"name!=null"</span>&gt;</span></span>
+				name=#{name},
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"age!=null"</span>&gt;</span></span>
+				age=#{age},
+			<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">set</span>&gt;</span></span>
+		where id=#{id}
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">update</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"findById"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Integer"</span> <span class="hljs-attribute cye-lm-tag">resultType</span>=<span class="hljs-value cye-lm-tag">"Student"</span>&gt;</span></span>
+		select * from t_student where id=#{id}
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">mapper</span>&gt;</span></span> </code></pre><p class="cye-lm-tag">4、测试类</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.service;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.HashMap;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.List;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.Map;
+
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSession;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.mappers.StudentMapper;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.util.SqlSessionFactoryUtil;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">Test</span> </span>{
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> <span class="hljs-keyword cye-lm-tag">void</span> <span class="hljs-title cye-lm-tag">main</span><span class="hljs-params cye-lm-tag">(String[] args)</span> </span>{
+		SqlSession sqlSession = SqlSessionFactoryUtil.openSession();
+		StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+		System.out.println(<span class="hljs-string cye-lm-tag">"----测试if(接口方法参数为Student)----"</span>);
+		Student student = <span class="hljs-keyword cye-lm-tag">new</span> Student();
+		student.setName(<span class="hljs-string cye-lm-tag">"%李%"</span>);
+		<span class="hljs-comment cye-lm-tag">//student.setAge(12);</span>
+		List&lt;Student&gt; studentList = studentMapper.find(student);
+		studentList.forEach(s-&gt;System.out.println(s));
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试if(接口方法参数为Map)-----"</span>);
+		Map&lt;String, Object&gt; map = <span class="hljs-keyword cye-lm-tag">new</span> HashMap&lt;&gt;();
+		<span class="hljs-comment cye-lm-tag">//map.put("name", "%李%");</span>
+		<span class="hljs-comment cye-lm-tag">//map.put("age", 12);</span>
+		map.put(<span class="hljs-string cye-lm-tag">"start"</span>, <span class="hljs-number cye-lm-tag">1</span>);
+		map.put(<span class="hljs-string cye-lm-tag">"size"</span>, <span class="hljs-number cye-lm-tag">2</span>);
+		studentList = studentMapper.find2(map);
+		studentList.forEach(s-&gt;System.out.println(s));
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试choose, when, otherwise-----"</span>);
+		student = <span class="hljs-keyword cye-lm-tag">new</span> Student();
+		student.setName(<span class="hljs-string cye-lm-tag">"%张%"</span>);
+		studentList = studentMapper.find3(student);
+		studentList.forEach(s-&gt;System.out.println(s));
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试where语句-----"</span>);
+		student = <span class="hljs-keyword cye-lm-tag">new</span> Student();
+		student.setName(<span class="hljs-string cye-lm-tag">"%李%"</span>);
+		student.setAge(<span class="hljs-number cye-lm-tag">11</span>);
+		studentList = studentMapper.find4(student);
+		studentList.forEach(s-&gt;System.out.println(s));
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试trim语句(查询)-----"</span>);
+		student = <span class="hljs-keyword cye-lm-tag">new</span> Student();
+		student.setName(<span class="hljs-string cye-lm-tag">"%李%"</span>);
+		student.setAge(<span class="hljs-number cye-lm-tag">11</span>);
+		studentList = studentMapper.find5(student);
+		studentList.forEach(s-&gt;System.out.println(s));
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试trim语句(更新)-----"</span>);
+		student = <span class="hljs-keyword cye-lm-tag">new</span> Student(<span class="hljs-number cye-lm-tag">1</span>,<span class="hljs-string cye-lm-tag">"new name"</span>,<span class="hljs-number cye-lm-tag">23</span>);
+		studentMapper.update(student);
+		student = studentMapper.findById(<span class="hljs-number cye-lm-tag">1</span>);
+		System.out.println(student);
+		System.out.println();
+		System.out.println(<span class="hljs-string cye-lm-tag">"-----测试set语句-----"</span>);
+		student = <span class="hljs-keyword cye-lm-tag">new</span> Student(<span class="hljs-number cye-lm-tag">1</span>,<span class="hljs-string cye-lm-tag">"张三"</span>,<span class="hljs-number cye-lm-tag">12</span>);
+		studentMapper.update2(student);
+		student = studentMapper.findById(<span class="hljs-number cye-lm-tag">1</span>);
+		System.out.println(student);
+		sqlSession.commit();
+		
+	}
+}
+</code></pre><p class="cye-lm-tag">输出：</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="cs hljs cye-lm-tag" codemark="1">----测试<span class="hljs-keyword cye-lm-tag">if</span>(接口方法参数为Student)----
+Student [id=<span class="hljs-number cye-lm-tag">2</span>, name=李四, age=<span class="hljs-number cye-lm-tag">11</span>]
+Student [id=<span class="hljs-number cye-lm-tag">16</span>, name=小李, age=<span class="hljs-number cye-lm-tag">23</span>]
+Student [id=<span class="hljs-number cye-lm-tag">17</span>, name=大李, age=<span class="hljs-number cye-lm-tag">14</span>]
+Student [id=<span class="hljs-number cye-lm-tag">18</span>, name=老李, age=<span class="hljs-number cye-lm-tag">15</span>]
+
+-----测试<span class="hljs-keyword cye-lm-tag">if</span>(接口方法参数为Map)-----
+Student [id=<span class="hljs-number cye-lm-tag">2</span>, name=李四, age=<span class="hljs-number cye-lm-tag">11</span>]
+Student [id=<span class="hljs-number cye-lm-tag">13</span>, name=王五, age=<span class="hljs-number cye-lm-tag">12</span>]
+
+-----测试choose, <span class="hljs-keyword cye-lm-tag">when</span>, otherwise-----
+Student [id=<span class="hljs-number cye-lm-tag">1</span>, name=小张, age=<span class="hljs-number cye-lm-tag">12</span>]
+Student [id=<span class="hljs-number cye-lm-tag">19</span>, name=小张, age=<span class="hljs-number cye-lm-tag">16</span>]
+
+-----测试<span class="hljs-keyword cye-lm-tag">where</span>语句-----
+Student [id=<span class="hljs-number cye-lm-tag">2</span>, name=李四, age=<span class="hljs-number cye-lm-tag">11</span>]
+
+-----测试trim语句(查询)-----
+Student [id=<span class="hljs-number cye-lm-tag">2</span>, name=李四, age=<span class="hljs-number cye-lm-tag">11</span>]
+
+-----测试trim语句(更新)-----
+Student [id=<span class="hljs-number cye-lm-tag">1</span>, name=<span class="hljs-keyword cye-lm-tag">new</span> name, age=<span class="hljs-number cye-lm-tag">23</span>]
+
+-----测试<span class="hljs-keyword cye-lm-tag">set</span>语句-----
+Student [id=<span class="hljs-number cye-lm-tag">1</span>, name=张三, age=<span class="hljs-number cye-lm-tag">12</span>]
+</code></pre><p class="cye-lm-tag"><br></p><p class="cye-lm-tag">参考：<font size="3" class="cye-lm-tag"><a href="/blog/article_foreDetail?articleId=53" target="_blank">MyBatis基础</a></font>、<span style="color: inherit; font-family: inherit;" class="cye-lm-tag"><font size="3"><a href="http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html" target="_blank">动态 SQL</a></font></span></p><p class="cye-lm-tag"><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-11-06 12:46:59.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
