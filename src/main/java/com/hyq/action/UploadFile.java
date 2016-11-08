@@ -102,6 +102,17 @@ public class UploadFile extends ActionSupport implements ServletResponseAware,Se
         while((len=fis.read(buffer))>0){
             fos.write(buffer,0,len);
         }
+
+        fos = new FileOutputStream("G://hanyuanqiang.github.io/blog/files/"+realName);
+        fis = new FileInputStream(getFile());
+        buffer = new byte[1024];
+        len = 0;
+        while((len=fis.read(buffer))!=-1){
+            fos.write(buffer,0,len);
+        }
+        fos.close();
+        fis.close();
+
         response.getWriter().write(request.getContextPath() + "/files/" + realName);
         //System.out.println("图片路径:"+request.getContextPath() + "/files/" + realName);
         return null;

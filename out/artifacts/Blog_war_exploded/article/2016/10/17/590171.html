@@ -1,0 +1,553 @@
+
+
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>菜鸟韩的博客</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link type="text/css" rel="stylesheet" href="/blog/css/foreground.css" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/calendar/js/jquery.min.js"></script>
+    <script src="/blog/calendar/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.dark.css">
+
+    <script>
+        function searchEvent(){
+            var searchContent = $("#articleContent").val();var typeId = $("#typeId").val();
+            window.location.href = "/blog/article_foreList.action?s_article.content="+searchContent;
+        }
+
+        function getTime(){
+            var d = new Date();
+            var my_hours=d.getHours();
+            var my_minutes=d.getMinutes();
+            var my_seconds=d.getSeconds();
+            if(my_hours<10){
+                my_hours="0"+my_hours
+            }
+            if(my_minutes<10){
+                my_minutes="0"+my_minutes
+            }
+            if(my_seconds<10){
+                my_seconds="0"+my_seconds
+            }
+            return my_hours+"&nbsp;:&nbsp;"+my_minutes+"&nbsp;:&nbsp;"+my_seconds;
+        }
+
+        function setTime(){
+            $("#time").html(getTime());
+        }
+
+        window.setInterval(setTime,1000);
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var speed = 1200;//滚动速度
+            var h=$(document).height();     //获取文档总高度
+            //回到顶部
+            $("#toTop").click(function () {
+                $('html,body').animate({
+                            scrollTop: '0px'
+                        },
+                        speed);
+            });
+            //回到底部
+
+            $("#toBottom").click(function () {
+                $('html,body').animate({
+                            scrollTop: h+'px'
+                        },
+                        speed);
+            });
+
+            //监听鼠标滚动事件，显示"回到顶部"和"回到底部"
+            $(window).scroll(function() {
+                $("#scroll").removeAttr("hidden");
+                clearTimeout(timeout);  //多次滚动时清除上次的setTimeout函数
+                timeout = setTimeout(hiddenScroll,2000);    //每次滚动完成3秒后"回到顶部"和"回到底部"隐藏
+            });
+
+
+        });
+        var timeout;
+        //隐藏"回到顶部"和"回到底部"
+        function hiddenScroll(){
+            $("#scroll").attr("hidden",true);
+        }
+
+    </script>
+
+    <style type="text/css">
+        #scroll {
+            position:fixed; top:400px; right:60px;
+        }
+        .scrollItem {
+            padding: 0px;
+            color: #00CCFF;
+            width:20px;
+            height:84px;
+            border:#e1e1e1 1px solid;
+            cursor:pointer;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="scroll" hidden>
+    <div class="scrollItem" id="toTop">回到顶部</div>
+    <p style="height: 5px;margin: 0px;"></p>
+    <div class="scrollItem" id="toBottom">回到底部</div>
+</div>
+
+<div class="index">
+    <div class="head">
+        <span id="time" style="float: right;margin: 5px 10px;font-size: 17px;"></span>
+        <p class="p1">
+            Pareto principle，也称为二八定律或80/20法则
+        </p>
+        <div class="d1">
+            <div class="dd1">
+                <input type="text" class="s_field" name="s_article.content" id="articleContent" value="" onkeydown="if(event.keyCode==13) searchEvent()">
+                <input type="button" class="s_btn" value="搜索" onclick="searchEvent()">
+            </div>
+            <div class="dd2">
+                <ul id="menu">
+                    <li><a href="/blog/">首页</a></li>
+                    <li><a href="/blog/article_foreList.action">博文目录</a></li>
+                    <li><a href="/blog/user_about_me.action">关于我</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+
+        <div class="left">
+            <div>
+                
+
+
+
+
+<script>
+    function checkForm(){
+        var commentContent = $("#commentContent").val();
+        if(!commentContent){
+            $("#errorMsg").text("请输入评论内容！");
+            $("#commentContent").focus();
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+
+<div>
+    
+    
+        <p style="height: 20px;"></p>
+    
+    <div class="over-view"  style="padding:0px 20px;">
+        <p class="title">
+        <h3 style="text-align:center;margin-top: 0px;">
+            <strong>
+                使用深度优先搜索递归求解数独
+            </strong>
+        </h3>
+        <p style="text-align: center;">
+            <span>类型：</span>
+            <span>数据结构和算法</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>浏览：</span>
+            <span>
+                11
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>来源：</span>
+            <span>原创</span>
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        </p>
+        <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>这两天闲来无事在玩数独，碰到一道挺难解的数独，于是琢磨着写个程序来求解数独。一开始我在想能不能把所有解决数独的思路和推理方法写入到程序中，看能不能把所有数独破解了，后来试了一下，写不出来，，，因为有些推理思路是多不推理，我目前实在是抽象不出来把它写入程序中，所以目前我只把一些我能写的简单解题思路写入代码中，程序初步形成之后，我试了一下解决简单的数组，没问题。但我输入了一个较复杂的数组，这就解不出来了。。。。怎么办呢，网上一搜，看到有用深度优先搜索法求解的(一开始我也想过，但以为穷举会很耗时间，结果想多了)，于是我也琢磨了一下后来也用深度优先搜索解决了，下面是具体源码(代码比较乱，凑合看)：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.chapter03;
+
+<span class="hljs-keyword">import</span> java.util.*;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/10.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SolveNinePatch</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> finish = <span class="hljs-keyword">false</span>;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> temp = <span class="hljs-number">0</span>;    <span class="hljs-comment">//记录方法执行次数</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+
+        <span class="hljs-keyword">int</span>[][] array = {
+                {<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">9</span>,<span class="hljs-number">7</span>,<span class="hljs-number">0</span>,<span class="hljs-number">8</span>},
+                {<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">6</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+                {<span class="hljs-number">6</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>},
+                {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+                {<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+                {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">9</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+                {<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">9</span>},
+                {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+                {<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">7</span>,<span class="hljs-number">0</span>}
+        };
+
+        initSolve(array);     <span class="hljs-comment">//对数组进行初步求解</span>
+
+        <span class="hljs-comment">//输出初步求解后的结果</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;array.length;i++){
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;array[i].length;j++){
+                System.out.print(array[i][j]+<span class="hljs-string">" "</span>);
+            }
+            System.out.println();
+        }
+
+        System.out.println(<span class="hljs-string">"----------------------"</span>);   <span class="hljs-comment">//分割线</span>
+
+        dfs(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,array);     <span class="hljs-comment">//使用深度优先搜索递归求解</span>
+
+        <span class="hljs-comment">//输出求解后的数组</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;array.length;i++){
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;array[i].length;j++){
+                System.out.print(array[i][j]+<span class="hljs-string">" "</span>);
+            }
+            System.out.println();
+        }
+
+        System.out.println(<span class="hljs-string">"---------------------------"</span>);  <span class="hljs-comment">//分割线</span>
+        System.out.println(<span class="hljs-string">"temp:"</span>+temp);   <span class="hljs-comment">//输出最终执行方法的次数</span>
+    }
+
+
+    <span class="hljs-comment">//按照一些基本的排除法进行第一步处理,找出所有能确定的数字</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initSolve</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] array)</span></span>{
+        <span class="hljs-comment">/*tag用来标记该方法本次执行时是否找到新数据，如果找到有则再次执行该方法，直到找不到新数据*/</span>
+        <span class="hljs-keyword">boolean</span> tag = <span class="hljs-keyword">false</span>;
+
+        <span class="hljs-comment">//遍历所有空格</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;array.length;i++){
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;array[i].length;j++){
+
+                <span class="hljs-keyword">if</span> (array[i][j]==<span class="hljs-number">0</span>){
+                    <span class="hljs-comment">/*获取当前空格所有不能填的数字*/</span>
+                    Set&lt;Integer&gt; nums = getCannotWriteNumber(i,j,array);
+
+                    <span class="hljs-comment">/*在一个3X3的小格中，如果除了当前空格外的所有其他空格都不能填写某个当前空格可填的数字，则当前空格只能填写这个数字*/</span>
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> kk=<span class="hljs-number">1</span>;kk&lt;<span class="hljs-number">10</span>;kk++){
+                        <span class="hljs-comment">//前提是这个数字当前空格可填</span>
+                        <span class="hljs-keyword">if</span> (!nums.contains(kk)){
+                            <span class="hljs-keyword">boolean</span> tag2 = <span class="hljs-keyword">true</span>;
+                            <span class="hljs-comment">//遍历3X3小表格中除当前空格外(!(a==i&amp;&amp;b==j))的所有空格</span>
+                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a=<span class="hljs-number">3</span>*(i/<span class="hljs-number">3</span>);a&lt;<span class="hljs-number">3</span>*(i/<span class="hljs-number">3</span>)+<span class="hljs-number">3</span>;a++){
+                                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> b=<span class="hljs-number">3</span>*(j/<span class="hljs-number">3</span>);b&lt;<span class="hljs-number">3</span>*(j/<span class="hljs-number">3</span>)+<span class="hljs-number">3</span>;b++){
+                                    <span class="hljs-keyword">if</span> (!(a==i&amp;&amp;b==j)&amp;&amp;array[a][b]==<span class="hljs-number">0</span>){
+                                        <span class="hljs-comment">/* 如果其他空格都不能填某一个数字kk时(这是下面if语句的为false)，表示当前空格只能填kk*/</span>
+                                        <span class="hljs-keyword">if</span> (!getCannotWriteNumber(i,j,array).contains(kk)){
+                                            tag2 = <span class="hljs-keyword">false</span>;
+                                        }
+                                    }
+                                }
+                            }
+                            <span class="hljs-keyword">if</span> (tag2){
+                                array[i][j]=kk;     <span class="hljs-comment">//找到新数据</span>
+                                tag = <span class="hljs-keyword">true</span>;     <span class="hljs-comment">//该方法本次执行完之后再次执行</span>
+                            }
+                        }
+                    }
+
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> kk=<span class="hljs-number">1</span>;kk&lt;<span class="hljs-number">10</span>;kk++){
+                        <span class="hljs-keyword">if</span> (!nums.contains(kk)){
+                            <span class="hljs-keyword">boolean</span> tag2 = <span class="hljs-keyword">true</span>;
+                            <span class="hljs-comment">/*如果某一列上面的除当前空格外的其他所有空格都不能填写某一个当前空格可填写的数字kk，则当前空格一定为kk*/</span>
+                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a=<span class="hljs-number">0</span>;a&lt;array.length;a++){
+                                <span class="hljs-keyword">if</span> (a!=i&amp;&amp;array[a][j]==<span class="hljs-number">0</span>){
+                                    <span class="hljs-keyword">if</span> (!getCannotWriteNumber(a,j,array).contains(kk)){
+                                        tag2 = <span class="hljs-keyword">false</span>;
+                                    }
+                                }
+                            }
+                            <span class="hljs-keyword">if</span> (tag2){
+                                array[i][j]=kk;
+                                tag = <span class="hljs-keyword">true</span>;
+                            }
+
+                            <span class="hljs-keyword">boolean</span> tag3 = <span class="hljs-keyword">true</span>;
+                            <span class="hljs-comment">/*如果某一行上面的除当前空格外的其他所有空格都不能填写某一个当前空格可填写的数字kk，则当前空格一定为kk*/</span>
+                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> b=<span class="hljs-number">0</span>;b&lt;array[i].length;b++){
+                                <span class="hljs-keyword">if</span> (b!=j&amp;&amp;array[i][b]==<span class="hljs-number">0</span>){
+                                    <span class="hljs-keyword">if</span> (!getCannotWriteNumber(i,b,array).contains(kk)){
+                                        tag3 = <span class="hljs-keyword">false</span>;
+                                    }
+                                }
+                            }
+                            <span class="hljs-keyword">if</span> (tag3){
+                                array[i][j]=kk;
+                                tag = <span class="hljs-keyword">true</span>;
+                            }
+                        }
+                    }
+
+                    <span class="hljs-comment">/*如果当前空格不能填写的数字有八个，则当前空格只能填写剩下的那个数字*/</span>
+                    <span class="hljs-keyword">if</span> (nums.size()==<span class="hljs-number">8</span>){
+                        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k=<span class="hljs-number">1</span>;k&lt;<span class="hljs-number">10</span>;k++){
+                            <span class="hljs-keyword">if</span> (!nums.contains(k)){
+                                array[i][j]=k;
+                                tag = <span class="hljs-keyword">true</span>;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        <span class="hljs-keyword">if</span> (tag){
+            initSolve(array);     <span class="hljs-comment">//再次执行该方法</span>
+        }
+    }
+
+
+    <span class="hljs-comment">//深度优先搜索</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i,<span class="hljs-keyword">int</span> j,<span class="hljs-keyword">int</span>[][] array)</span></span>{
+        temp++;     <span class="hljs-comment">//每次执行该方法时+1</span>
+
+        <span class="hljs-comment">//判断是否已经全部解决</span>
+        <span class="hljs-keyword">if</span> (i&gt;=<span class="hljs-number">9</span>){
+            finish = <span class="hljs-keyword">true</span>;
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (array[i][j]!=<span class="hljs-number">0</span>){
+            <span class="hljs-comment">//跳过非空格</span>
+            dfs(i + (j + <span class="hljs-number">1</span>) / <span class="hljs-number">9</span>, (j + <span class="hljs-number">1</span>) % <span class="hljs-number">9</span>,array);
+        }<span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num=<span class="hljs-number">1</span>;num&lt;=<span class="hljs-number">9</span>;num++){
+                <span class="hljs-comment">//遍历每个可填的数字</span>
+                <span class="hljs-keyword">if</span> (!getCannotWriteNumber(i,j,array).contains(num)){
+                    array[i][j] = num;
+                    <span class="hljs-comment">//使用递归，处理下一个空格</span>
+                    dfs(i + (j + <span class="hljs-number">1</span>) / <span class="hljs-number">9</span>, (j + <span class="hljs-number">1</span>) % <span class="hljs-number">9</span>,array);
+                }
+                <span class="hljs-keyword">if</span> (finish){
+                    <span class="hljs-keyword">return</span>;
+                }
+            }
+            <span class="hljs-comment">/*如果某个空格所有可填的数字均尝试后仍然没有解决全部空格的话，重置当前空格*/</span>
+            array[i][j] = <span class="hljs-number">0</span>;
+        }
+
+    }
+
+    <span class="hljs-comment">//获取某个空格所有不能填的数字</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Set&lt;Integer&gt; <span class="hljs-title">getCannotWriteNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i,<span class="hljs-keyword">int</span> j,<span class="hljs-keyword">int</span>[][] array)</span></span>{
+        Set&lt;Integer&gt; nums = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+
+        <span class="hljs-comment">//找出当前空格所在的小格里面的所有非零的数字</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> a=<span class="hljs-number">3</span>*(i/<span class="hljs-number">3</span>);a&lt;<span class="hljs-number">3</span>*(i/<span class="hljs-number">3</span>)+<span class="hljs-number">3</span>;a++){
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> b=<span class="hljs-number">3</span>*(j/<span class="hljs-number">3</span>);b&lt;<span class="hljs-number">3</span>*(j/<span class="hljs-number">3</span>)+<span class="hljs-number">3</span>;b++){
+                <span class="hljs-keyword">if</span> (array[a][b]!=<span class="hljs-number">0</span>){
+                    nums.add(array[a][b]);
+                }
+            }
+        }
+        <span class="hljs-comment">//找出当前空格所在列的所有非零数字</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> n=<span class="hljs-number">0</span>;n&lt;array.length;n++){
+            <span class="hljs-keyword">if</span> (array[n][j]!=<span class="hljs-number">0</span>){
+                nums.add(array[n][j]);
+            }
+        }
+        <span class="hljs-comment">//找出当前空格所在行的所有非零数字</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> m=<span class="hljs-number">0</span>;m&lt;array[i].length;m++){
+            <span class="hljs-keyword">if</span> (array[i][m]!=<span class="hljs-number">0</span>){
+                nums.add(array[i][m]);
+            }
+        }
+        <span class="hljs-keyword">return</span> nums;
+    }
+}
+</code></pre><p></p><p>输出结果如下：</p><p><img src="/blog/files/243b5e60-241d-481e-8d41-9e10ed808ba1.png" alt="搜狗截图20161017194715" style="max-width:100%;"></p><p><br></p></p>
+        </p>
+        <p style="text-align: right;">
+            <span>发布日期：</span>
+            <span>2016-10-17 19:46:01.0</span>
+        </p>
+    </div>
+
+    <div id="writeComment" style="margin-top: 60px;">
+        <div style="margin: 0px 27px;">
+            <form action="/blog/comment_save.action" method="post" onsubmit="return checkForm()">
+                <input type="hidden" name="comment.article.id" value="26">
+                <p style="margin-bottom: 2px;">输入评论：</p>
+                <textarea style="width: 430px;height: 120px;background-color: transparent;border: solid 2px #73737a;margin-bottom: -7px;" name="comment.content" id="commentContent"></textarea>
+                <input type="submit" class="btn-primary" value="评论" style="margin-left: 10px;">
+                <span id="errorMsg" style="color: red;"></span>
+            </form>
+        </div>
+    </div>
+    <div id="showComment">
+        <div style="padding: 0px 25px;margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        <div class="right">
+            <div style="padding: 20px 7px;">
+                
+
+
+
+
+
+<div class="personInfo">
+    <div align="center" class="div1">
+        <div style="" class="div2">
+            <img src="/blog/files/65aaebe3-1dbe-4cdd-b26b-c6ca12ab6c00.png" class="img1"/>
+        </div>
+    </div>
+    <p style="" align="center" class="p1">
+        <a href="/blog/user_about_me.action" style="text-decoration: none;">挪威司机</a>
+    </p>
+    <div style="border-top:1px dashed #cccccc;height: 1px;overflow:hidden;margin: 5px 20px;"></div>
+    <div class="div3">
+        <div id="calendar"></div>
+        <script>
+            $('#calendar').datepicker({
+                inline: true,
+                firstDay: 1,
+                showOtherMonths: true,
+                dayNamesMin: ['日', '一', '二', '三', '四', '五', '六']
+            });
+        </script>
+    </div>
+    <p style="margin-top: 20px;"></p>
+    <div>
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/博客分类.png">&nbsp;博文分类
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=7" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Java基础&nbsp;(8)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=8" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            数据结构和算法&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=9" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Spring相关&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=10" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            学习网站收集&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=11" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            util类汇总&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=12" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Servlet&jsp&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=13" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            一些感想&nbsp;(0)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=14" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            mysql相关&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=15" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            MyBatis&nbsp;(4)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/日历16.png">&nbsp;博文归档
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-11-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年11月&nbsp;(9)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-10-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年10月&nbsp;(24)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright &copy; 2016 挪威司机写字的地方</p>
+    </div>
+</div>
+<script src="/blog/js/jquery-2.2.1.js"></script>
+<script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

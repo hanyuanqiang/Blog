@@ -1,0 +1,355 @@
+
+
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>菜鸟韩的博客</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link type="text/css" rel="stylesheet" href="/blog/css/foreground.css" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/calendar/js/jquery.min.js"></script>
+    <script src="/blog/calendar/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.dark.css">
+
+    <script>
+        function searchEvent(){
+            var searchContent = $("#articleContent").val();var typeId = $("#typeId").val();
+            window.location.href = "/blog/article_foreList.action?s_article.content="+searchContent;
+        }
+
+        function getTime(){
+            var d = new Date();
+            var my_hours=d.getHours();
+            var my_minutes=d.getMinutes();
+            var my_seconds=d.getSeconds();
+            if(my_hours<10){
+                my_hours="0"+my_hours
+            }
+            if(my_minutes<10){
+                my_minutes="0"+my_minutes
+            }
+            if(my_seconds<10){
+                my_seconds="0"+my_seconds
+            }
+            return my_hours+"&nbsp;:&nbsp;"+my_minutes+"&nbsp;:&nbsp;"+my_seconds;
+        }
+
+        function setTime(){
+            $("#time").html(getTime());
+        }
+
+        window.setInterval(setTime,1000);
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var speed = 1200;//滚动速度
+            var h=$(document).height();     //获取文档总高度
+            //回到顶部
+            $("#toTop").click(function () {
+                $('html,body').animate({
+                            scrollTop: '0px'
+                        },
+                        speed);
+            });
+            //回到底部
+
+            $("#toBottom").click(function () {
+                $('html,body').animate({
+                            scrollTop: h+'px'
+                        },
+                        speed);
+            });
+
+            //监听鼠标滚动事件，显示"回到顶部"和"回到底部"
+            $(window).scroll(function() {
+                $("#scroll").removeAttr("hidden");
+                clearTimeout(timeout);  //多次滚动时清除上次的setTimeout函数
+                timeout = setTimeout(hiddenScroll,2000);    //每次滚动完成3秒后"回到顶部"和"回到底部"隐藏
+            });
+
+
+        });
+        var timeout;
+        //隐藏"回到顶部"和"回到底部"
+        function hiddenScroll(){
+            $("#scroll").attr("hidden",true);
+        }
+
+    </script>
+
+    <style type="text/css">
+        #scroll {
+            position:fixed; top:400px; right:60px;
+        }
+        .scrollItem {
+            padding: 0px;
+            color: #00CCFF;
+            width:20px;
+            height:84px;
+            border:#e1e1e1 1px solid;
+            cursor:pointer;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="scroll" hidden>
+    <div class="scrollItem" id="toTop">回到顶部</div>
+    <p style="height: 5px;margin: 0px;"></p>
+    <div class="scrollItem" id="toBottom">回到底部</div>
+</div>
+
+<div class="index">
+    <div class="head">
+        <span id="time" style="float: right;margin: 5px 10px;font-size: 17px;"></span>
+        <p class="p1">
+            Pareto principle，也称为二八定律或80/20法则
+        </p>
+        <div class="d1">
+            <div class="dd1">
+                <input type="text" class="s_field" name="s_article.content" id="articleContent" value="" onkeydown="if(event.keyCode==13) searchEvent()">
+                <input type="button" class="s_btn" value="搜索" onclick="searchEvent()">
+            </div>
+            <div class="dd2">
+                <ul id="menu">
+                    <li><a href="/blog/">首页</a></li>
+                    <li><a href="/blog/article_foreList.action">博文目录</a></li>
+                    <li><a href="/blog/user_about_me.action">关于我</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+
+        <div class="left">
+            <div>
+                
+
+
+
+
+<script>
+    function checkForm(){
+        var commentContent = $("#commentContent").val();
+        if(!commentContent){
+            $("#errorMsg").text("请输入评论内容！");
+            $("#commentContent").focus();
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+
+<div>
+    
+    
+        <p style="height: 20px;"></p>
+    
+    <div class="over-view"  style="padding:0px 20px;">
+        <p class="title">
+        <h3 style="text-align:center;margin-top: 0px;">
+            <strong>
+                正则表达式基础篇
+            </strong>
+        </h3>
+        <p style="text-align: center;">
+            <span>类型：</span>
+            <span>Java基础</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>浏览：</span>
+            <span>
+                15
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>来源：</span>
+            <span>原创</span>
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        </p>
+        <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p><font face="宋体" size="4" color="#808000">1、正则表达式所支持的合法字符</font></p><table style="color:gray;" class="" border="1"><tbody><tr><td style="width:20%;" align="center"><span><font color="#880000">&nbsp;字符</font><br></span></td><td align="center" style="text-align: center;"><span><font color="#880000">解释 </font><br></span></td></tr><tr><td align="center"><span></span>x<br></td><td><span></span>字符x（x可代表任何合法的字符）<br></td></tr><tr><td align="center"><span>\0mnn</span></td><td><span></span>八进制数0mnn所表示的字符<br></td></tr><tr><td align="center"><span>\xhh</span></td><td><span>十六进制值0xhh所表示的字符</span></td></tr><tr><td align="center"><span>\uhhhh</span></td><td><span>十六进制值0xhhhh所表示的Unicode字符</span></td></tr><tr><td align="center"><span>\t</span></td><td><span>制表符('\u0009')</span></td></tr><tr><td align="center"><span>\n</span></td><td><span>换行符('\u000A')</span></td></tr><tr><td align="center"><span>\r</span></td><td><span>回车符('\u000D')</span></td></tr><tr><td valign="top" align="center">\f<br></td><td valign="top">换页符('\u000C')<br></td></tr><tr><td valign="top" align="center">\a<br></td><td valign="top">报警(bell)符('\u0007')<br></td></tr><tr><td valign="top" align="center">\e<br></td><td valign="top">Escape符('\u001B')<br></td></tr><tr><td valign="top" align="center">\cx<br></td><td valign="top">x对应的控制符。例如，\cM匹配Ctrl-M。x值必须为A~Z或a~z之一<br></td></tr></tbody></table><p><br></p><p><font face="宋体" size="4" color="#808000">2、正则表达式中的特殊字符</font></p><p><img src="/blog/files/f270343b-cfb9-4f59-b24a-f39402f66da8.png" alt="搜狗截图20161022233513" style="max-width:100%;"></p><p><br></p><p><font size="4" color="#808000">3、预定义字符</font></p><table style="color:gray;" class="" border="1"><tbody><tr><td style="text-align: center;">&nbsp;<font color="#880000">预定义字符</font></td><td style="text-align: center;"><font color="#880000">说明&nbsp;</font></td></tr><tr><td style="text-align: center;">&nbsp;.</td><td>&nbsp;可以匹配任何字符</td></tr><tr><td style="text-align: center;">&nbsp;\d</td><td>&nbsp;匹配0~9的所有数字</td></tr><tr><td style="text-align: center;">&nbsp;\D</td><td>&nbsp;匹配非数字</td></tr><tr><td style="text-align: center;">&nbsp;\s</td><td>&nbsp;匹配所有的空白字符，包括空格、制表符、回车符、换页符、换行符等</td></tr><tr><td style="text-align: center;">&nbsp;\S</td><td>&nbsp;匹配所有的非空白字符</td></tr><tr><td style="text-align: center;">&nbsp;\w</td><td>&nbsp;匹配所有的单词字符，包括0~9所有数字、26个大小写英文字母和下划线(_)</td></tr><tr><td style="text-align: center;">&nbsp;\W</td><td>&nbsp;匹配所有的非单词字符</td></tr></tbody></table><br><p><font color="#008080">上面七个预定义字符其实很容易记忆——d是digit的意思，代表数字；s是space的意思，代表空格；w是word的意思，代表单词。d、s、w的大写形式恰好匹配与之前相反的字符。</font></p><p><br></p><p><font color="#808000" size="4">4、方括号表达式</font></p><table style="color:gray;" class="" border="1"><tbody><tr><td style="text-align: center;">&nbsp;<font color="#880000">方括号表达式</font></td><td style="text-align: center;"><font color="#880000">说明</font>&nbsp;</td></tr><tr><td style="text-align: center;">&nbsp;表示枚举</td><td>&nbsp;例如[abc]，表示a、b、c其中任意一个字符；[gz]，表示g、z其中任意一个字符&nbsp;</td></tr><tr><td style="text-align: center;">&nbsp;表示范围</td><td>&nbsp;例如[a-f]，表示a~f范围内的任意字符；[\\u0041-\\u0056]，表示十六进制字符\u0041到\u0056范围的字符。<br>&nbsp;范围可以和枚举结合使用，如[a-cx-z]，表示a~c、x~z范围内的任意字符</td></tr><tr><td style="text-align: center;">&nbsp;表示求否：^</td><td>&nbsp;例如[^abc]，表示非a、b、c的任意字符；[^a-f]，表示不是a~f范围内的任意字符</td></tr><tr><td style="text-align: center;">&nbsp;表示"与"运算符：&&amp;</td><td>&nbsp;例如[a-z&amp;&amp;[def]]，求a~z的[def]的交集，表示d、e或f<br>&nbsp;[a-z&amp;&amp;[^bc]]，a~z范围内的所有字符，除了b和c之外，即[ad-z]<br>&nbsp;[a-z&amp;&amp;[^m-p]]，a~z范围内的所有字符，除了m~p范围之外的字符，即[a-lq-z]</td></tr><tr><td>&nbsp;表示“并”运算符</td><td>&nbsp;并运算与前面的枚举类似。例如[a-d[m-p]]，表示[a-dm-p]</td></tr></tbody></table><br><p><font color="#008080">正则表达式还支持圆括号表达式，用于将多个表达式组成一个子表达式，圆括号中可以使用“或”运算符(|)，例如，正则表达式"((public)|(protected)|(private))"用于匹配java的三个访问控制符其中一个。</font></p><p><br></p><p><font size="4" color="#808000">5、边界匹配符</font></p><table style="color:gray;" class="" border="1"><tbody><tr><td style="text-align: center;">&nbsp;<font color="#880000">边界匹配符</font></td><td style="text-align: center;">&nbsp;<font color="#880000">说明</font></td></tr><tr><td style="text-align: center;">&nbsp;^</td><td>&nbsp;行的开头</td></tr><tr><td style="text-align: center;">&nbsp;$</td><td>&nbsp;行的结尾</td></tr><tr><td style="text-align: center;">&nbsp;\b</td><td>&nbsp;单词的边界</td></tr><tr><td style="text-align: center;">&nbsp;\B</td><td>&nbsp;非单词的边界</td></tr><tr><td style="text-align: center;">&nbsp;\A</td><td>&nbsp;输入的开头&nbsp;</td></tr><tr><td style="text-align: center;">&nbsp;\G</td><td>&nbsp;前一个匹配的结尾</td></tr><tr><td style="text-align: center;">&nbsp;\Z</td><td>&nbsp;输入的结尾，仅用于最后的结束符</td></tr><tr><td style="text-align: center;">&nbsp;\z</td><td>&nbsp;输入的结尾</td></tr></tbody></table><br><p><font color="#008080">对上面的匹配符作进一步说明：</font></p><p><img src="/blog/files/e890c19e-19c8-4b62-a57f-8333a6fd5714.png" alt="搜狗截图20161024103532" style="max-width:100%;"></p><p><br></p></p>
+        </p>
+        <p style="text-align: right;">
+            <span>发布日期：</span>
+            <span>2016-10-22 23:23:47.0</span>
+        </p>
+    </div>
+
+    <div id="writeComment" style="margin-top: 60px;">
+        <div style="margin: 0px 27px;">
+            <form action="/blog/comment_save.action" method="post" onsubmit="return checkForm()">
+                <input type="hidden" name="comment.article.id" value="41">
+                <p style="margin-bottom: 2px;">输入评论：</p>
+                <textarea style="width: 430px;height: 120px;background-color: transparent;border: solid 2px #73737a;margin-bottom: -7px;" name="comment.content" id="commentContent"></textarea>
+                <input type="submit" class="btn-primary" value="评论" style="margin-left: 10px;">
+                <span id="errorMsg" style="color: red;"></span>
+            </form>
+        </div>
+    </div>
+    <div id="showComment">
+        <div style="padding: 0px 25px;margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        <div class="right">
+            <div style="padding: 20px 7px;">
+                
+
+
+
+
+
+<div class="personInfo">
+    <div align="center" class="div1">
+        <div style="" class="div2">
+            <img src="/blog/files/65aaebe3-1dbe-4cdd-b26b-c6ca12ab6c00.png" class="img1"/>
+        </div>
+    </div>
+    <p style="" align="center" class="p1">
+        <a href="/blog/user_about_me.action" style="text-decoration: none;">挪威司机</a>
+    </p>
+    <div style="border-top:1px dashed #cccccc;height: 1px;overflow:hidden;margin: 5px 20px;"></div>
+    <div class="div3">
+        <div id="calendar"></div>
+        <script>
+            $('#calendar').datepicker({
+                inline: true,
+                firstDay: 1,
+                showOtherMonths: true,
+                dayNamesMin: ['日', '一', '二', '三', '四', '五', '六']
+            });
+        </script>
+    </div>
+    <p style="margin-top: 20px;"></p>
+    <div>
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/博客分类.png">&nbsp;博文分类
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=7" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Java基础&nbsp;(8)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=8" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            数据结构和算法&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=9" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Spring相关&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=10" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            学习网站收集&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=11" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            util类汇总&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=12" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Servlet&jsp&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=13" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            一些感想&nbsp;(0)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=14" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            mysql相关&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=15" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            MyBatis&nbsp;(4)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/日历16.png">&nbsp;博文归档
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-11-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年11月&nbsp;(9)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-10-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年10月&nbsp;(24)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright &copy; 2016 挪威司机写字的地方</p>
+    </div>
+</div>
+<script src="/blog/js/jquery-2.2.1.js"></script>
+<script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

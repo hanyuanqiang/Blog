@@ -1,0 +1,385 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            排序算法
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>数据结构和算法</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>11</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>1、选择排序</p><p>&nbsp;&nbsp;&nbsp; 选择排序法先找出数列中最小的数，然后将它放在数列的最前面。接下来在剩下的数中找到最小数，将它放到第一个数的后面，以此类推，直到数列中只剩下一个数为止。具体代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.chapter01;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/8.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SelectionSort</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span></span>{
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;nums.length;i++){
+            <span class="hljs-keyword">int</span> min = nums[i];
+            <span class="hljs-keyword">int</span> index = i;
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = i+<span class="hljs-number">1</span>;j&lt;nums.length;j++){
+                <span class="hljs-keyword">if</span> (nums[j]&lt;min){
+                    min = nums[j];
+                    index = j;
+                }
+            }
+            <span class="hljs-keyword">if</span> (index!=i){
+                nums[index] = nums[i];
+                nums[i] = min;
+            }
+        }
+
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-keyword">int</span>[] nums = {<span class="hljs-number">13</span>,<span class="hljs-number">15</span>,<span class="hljs-number">52</span>,<span class="hljs-number">25</span>,<span class="hljs-number">6</span>,<span class="hljs-number">11</span>,<span class="hljs-number">37</span>,<span class="hljs-number">43</span>,<span class="hljs-number">12</span>,<span class="hljs-number">1</span>};
+        sort(nums);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> n:nums) {
+            System.out.print(n+<span class="hljs-string">" "</span>);
+        }
+    }
+
+}
+</code></pre><p><br></p><p>2、插入排序</p><p>&nbsp;&nbsp;&nbsp; 插入排序算法是在已经排好序的子数列中反复插入一个新元素来对数列值进行排序的，直到整个数列全部排好序。具体代码如下：<br></p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.chapter01;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/8.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InsertionSort</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span></span>{
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;nums.length;i++){
+            <span class="hljs-keyword">int</span> currentNum = nums[i];
+            <span class="hljs-keyword">int</span> j;
+            <span class="hljs-keyword">for</span>(j = i-<span class="hljs-number">1</span>;j&gt;=<span class="hljs-number">0</span>&amp;&amp;nums[j]&gt;currentNum;j--){
+                nums[j+<span class="hljs-number">1</span>] = nums[j];
+            }
+            nums[j+<span class="hljs-number">1</span>] = currentNum;
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-keyword">int</span>[] nums = {<span class="hljs-number">13</span>,<span class="hljs-number">15</span>,<span class="hljs-number">52</span>,<span class="hljs-number">25</span>,<span class="hljs-number">6</span>,<span class="hljs-number">11</span>,<span class="hljs-number">37</span>,<span class="hljs-number">43</span>,<span class="hljs-number">12</span>,<span class="hljs-number">1</span>};
+        sort(nums);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> n:nums) {
+            System.out.print(n+<span class="hljs-string">" "</span>);
+        }
+    }
+
+}
+</code></pre><p><br></p><p>3、冒泡排序</p><p>&nbsp; &nbsp; 在每次遍历中，比较连续相邻的元素，如果某一元素是降序，则互换它们的值；否则保持不变。代码如下：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1">package com.hyq.chapter03;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/11.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BubbleSort</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bubbleSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] list)</span></span>{
+        <span class="hljs-keyword">boolean</span> needNextPass = <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k=<span class="hljs-number">1</span>;k&lt;list.length&amp;&amp;needNextPass;k++){
+            needNextPass = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;list.length-k;i++){
+                <span class="hljs-keyword">if</span> (list[i]&gt;list[i+<span class="hljs-number">1</span>]){
+                    <span class="hljs-keyword">int</span> temp = list[i];
+                    list[i] = list[i+<span class="hljs-number">1</span>];
+                    list[i+<span class="hljs-number">1</span>] = temp;
+                    needNextPass = <span class="hljs-keyword">true</span>;
+                }
+            }
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-keyword">int</span>[] list = {<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">25</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">3</span>,<span class="hljs-number">6</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>};
+        bubbleSort(list);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;list.length;i++){
+            System.out.print(list[i]+<span class="hljs-string">" "</span>);
+        }
+    }
+}
+</code></pre><p><br></p><p>4、归并排序</p><p>&nbsp; &nbsp; 归并排序算法可以递归的描述为：算法将数组分为两半，对每部分递归的应用归并排序。在两部分都排好序后，对它们进行归并。代码如下：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.chapter03;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/11.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MergeSort</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] list)</span></span>{
+        <span class="hljs-keyword">if</span> (list.length&gt;<span class="hljs-number">1</span>){
+            <span class="hljs-keyword">int</span>[] firstHalf = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[list.length/<span class="hljs-number">2</span>];
+            System.arraycopy(list,<span class="hljs-number">0</span>,firstHalf,<span class="hljs-number">0</span>,list.length/<span class="hljs-number">2</span>);
+            mergeSort(firstHalf);
+
+            <span class="hljs-keyword">int</span> secondHalfLength = list.length-list.length/<span class="hljs-number">2</span>;
+            <span class="hljs-keyword">int</span>[] secondHalf = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[secondHalfLength];
+            System.arraycopy(list,list.length/<span class="hljs-number">2</span>,secondHalf,<span class="hljs-number">0</span>,secondHalfLength);
+            mergeSort(secondHalf);
+
+            <span class="hljs-keyword">int</span>[] temp = merge(firstHalf,secondHalf);
+            System.arraycopy(temp,<span class="hljs-number">0</span>,list,<span class="hljs-number">0</span>,temp.length);
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] merge(<span class="hljs-keyword">int</span>[] list1,<span class="hljs-keyword">int</span>[] list2){
+        <span class="hljs-keyword">int</span>[] temp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[list1.length+list2.length];
+        <span class="hljs-keyword">int</span> current1 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> current2 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> current3 = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span> (current1&lt;list1.length&amp;&amp;current2&lt;list2.length){
+            <span class="hljs-keyword">if</span> (list1[current1]&lt;list2[current2]){
+                temp[current3++] = list1[current1++];
+            }<span class="hljs-keyword">else</span>{
+                temp[current3++] = list2[current2++];
+            }
+        }
+
+        <span class="hljs-keyword">while</span> (current1&lt;list1.length){
+            temp[current3++] = list1[current1++];
+        }
+
+        <span class="hljs-keyword">while</span> (current2&lt;list2.length){
+            temp[current3++] = list2[current2++];
+        }
+
+        <span class="hljs-keyword">return</span> temp;
+    }
+
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-keyword">int</span>[] list = {<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>,<span class="hljs-number">1</span>,<span class="hljs-number">83</span>,<span class="hljs-number">2</span>,<span class="hljs-number">33</span>,<span class="hljs-number">4</span>,<span class="hljs-number">11</span>};
+        mergeSort(list);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;list.length;i++){
+            System.out.print(list[i]+<span class="hljs-string">" "</span>);
+        }
+    }
+}
+</code></pre><p><br></p><p>5、快速排序</p><p>&nbsp;&nbsp;&nbsp; 快速排序算法在数组中选择一个称为主元(pivot)的元素将数组分为两部分，使得第一部分所有元素都小于或等于主元，而第二部分中的所有元素都大于主元。对第一部分递归的应用快速排序算法，然后对第二部分递归的应用快速排序算法。具体代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.chapter03;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/10/11.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QuickSort</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] list)</span></span>{
+        quickSort(list,<span class="hljs-number">0</span>,list.length-<span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] list,<span class="hljs-keyword">int</span> first,<span class="hljs-keyword">int</span> last)</span></span>{
+        <span class="hljs-keyword">if</span> (last&gt;first){
+            <span class="hljs-keyword">int</span> pivotIndex = partition(list,first,last);
+            quickSort(list,first,pivotIndex-<span class="hljs-number">1</span>);
+            quickSort(list,pivotIndex+<span class="hljs-number">1</span>,last);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] list,<span class="hljs-keyword">int</span> first,<span class="hljs-keyword">int</span> last)</span></span>{
+        num++;
+
+        <span class="hljs-keyword">int</span> pivot = list[first];
+        <span class="hljs-keyword">int</span> low = first+<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> high = last;
+
+        <span class="hljs-keyword">while</span>(high&gt;low){
+            <span class="hljs-comment">//查找第一个大于pivot的元素</span>
+            <span class="hljs-keyword">while</span> (low&lt;=high&amp;&amp;list[low]&lt;=pivot){
+                low++;
+            }
+
+            <span class="hljs-comment">//查找第一个小于pivot的元素</span>
+            <span class="hljs-keyword">while</span>(low&lt;=high&amp;&amp;list[high]&gt;pivot){
+                high--;
+            }
+
+            <span class="hljs-comment">//交换元素</span>
+            <span class="hljs-keyword">if</span> (high&gt;low){
+                <span class="hljs-keyword">int</span> temp = list[high];
+                list[high] = list[low];
+                list[low] = temp;
+            }
+        }
+
+        <span class="hljs-keyword">while</span> (high&gt;first&amp;&amp;list[high]&gt;=pivot){
+            high--;
+        }
+
+        <span class="hljs-keyword">if</span> (pivot&gt;list[high]){
+            list[first] = list[high];
+            list[high] = pivot;
+            <span class="hljs-keyword">return</span> high;
+        }<span class="hljs-keyword">else</span>{
+            <span class="hljs-keyword">return</span> first;
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>{
+        <span class="hljs-keyword">int</span>[] list = {<span class="hljs-number">21</span>,<span class="hljs-number">32</span>,<span class="hljs-number">55</span>,<span class="hljs-number">216</span>,<span class="hljs-number">4</span>,<span class="hljs-number">62</span>,<span class="hljs-number">2</span>,<span class="hljs-number">26</span>,<span class="hljs-number">57</span>,<span class="hljs-number">11</span>,<span class="hljs-number">44</span>,-<span class="hljs-number">99</span>,<span class="hljs-number">22</span>,<span class="hljs-number">54</span>,<span class="hljs-number">124</span>,<span class="hljs-number">5</span>,<span class="hljs-number">777</span>,<span class="hljs-number">67</span>,<span class="hljs-number">87</span>,-<span class="hljs-number">9</span>,<span class="hljs-number">10</span>};
+        quickSort(list);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i:list) {
+            System.out.print(i+<span class="hljs-string">" "</span>);
+        }
+        System.out.println();
+        System.out.println(num);
+    }
+}
+</code></pre><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-11 14:15:41.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

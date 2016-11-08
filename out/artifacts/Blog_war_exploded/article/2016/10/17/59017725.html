@@ -1,0 +1,278 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            Spring事务——使用XML配置事务策略
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Spring相关</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>0</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>Spring同时支持编程式事务策略和声明式事务策略，通常推荐采用声明式事务策略。下面通过一个简单的实例来测试Spring的事务功能。</p><p>1、定义一个接口类</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.transaction.dao;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NewsDao</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span>  <span class="hljs-title">insert</span><span class="hljs-params">(String title,String content)</span></span>;
+	
+}
+</code></pre><p>2、实现接口类</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.transaction.dao.impl;
+
+<span class="hljs-keyword">import</span> javax.sql.DataSource;
+<span class="hljs-keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;
+<span class="hljs-keyword">import</span> com.hyq.transaction.dao.NewsDao;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewsDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">NewsDao</span></span>{
+	
+	<span class="hljs-keyword">private</span> DataSource ds;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setDs</span><span class="hljs-params">(DataSource ds)</span> </span>{
+		<span class="hljs-keyword">this</span>.ds = ds;
+	}
+	
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(String title, String content)</span> </span>{
+		JdbcTemplate jt = <span class="hljs-keyword">new</span> JdbcTemplate(ds);
+		jt.update(<span class="hljs-string">"insert into news_inf values(1,?,?)"</span>,title,content);
+		<span class="hljs-comment">//两次插入的数据违反了唯一性约束</span>
+		jt.update(<span class="hljs-string">"insert into news_inf values(1,?,?)"</span>,title,content);
+		<span class="hljs-comment">//如果没有事务，则第一条记录可以被插入</span>
+		<span class="hljs-comment">//如果增加事务控制，将发现第一条记录也插不进去</span>
+	}
+}
+</code></pre><p>3、定义配置文件bean-transaction.xml</p><pre style="max-width:100%;overflow-x:auto;"><code class="xml hljs" codemark="1"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span><span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+	<span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans"</span>
+	<span class="hljs-attr">xmlns:aop</span>=<span class="hljs-string">"http://www.springframework.org/schema/aop"</span>
+	<span class="hljs-attr">xmlns:p</span>=<span class="hljs-string">"http://www.springframework.org/schema/p"</span>
+	<span class="hljs-attr">xmlns:cache</span>=<span class="hljs-string">"http://www.springframework.org/schema/cache"</span>
+	<span class="hljs-attr">xmlns:context</span>=<span class="hljs-string">"http://www.springframework.org/schema/context"</span>
+	<span class="hljs-attr">xmlns:tx</span>=<span class="hljs-string">"http://www.springframework.org/schema/tx"</span>
+	<span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd"</span>&gt;</span>
+    
+    
+    <span class="hljs-comment">&lt;!-- 定义数据源Bean，使用C3P0数据源实现，并注入数据源的必要信息 --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dataSource"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>
+    	<span class="hljs-attr">destroy-method</span>=<span class="hljs-string">"close"</span>
+    	<span class="hljs-attr">p:driverClass</span>=<span class="hljs-string">"com.mysql.jdbc.Driver"</span>
+    	<span class="hljs-attr">p:jdbcUrl</span>=<span class="hljs-string">"jdbc:mysql://localhost/db_spring"</span>
+    	<span class="hljs-attr">p:user</span>=<span class="hljs-string">"root"</span>
+    	<span class="hljs-attr">p:password</span>=<span class="hljs-string">"111"</span>
+    	<span class="hljs-attr">p:maxPoolSize</span>=<span class="hljs-string">"40"</span>
+    	<span class="hljs-attr">p:minPoolSize</span>=<span class="hljs-string">"2"</span>
+    	<span class="hljs-attr">p:initialPoolSize</span>=<span class="hljs-string">"2"</span>
+    	<span class="hljs-attr">p:maxIdleTime</span>=<span class="hljs-string">"30"</span>/&gt;</span>
+    
+    
+    <span class="hljs-comment">&lt;!-- 配置JDBC 数据源的局部事务管理器，使用DataSourceTransactionManager类 --&gt;</span>
+    <span class="hljs-comment">&lt;!-- 该类实现PlatformTransactionManager接口，是针对采用数据源连接的特定实现 --&gt;</span>
+    <span class="hljs-comment">&lt;!-- 配置DataSourceTransactionManager时需要依赖注入DataSource的引用 --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"transactionManager"</span>
+    	<span class="hljs-attr">class</span>=<span class="hljs-string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>
+    	<span class="hljs-attr">p:dataSource-ref</span>=<span class="hljs-string">"dataSource"</span>/&gt;</span>
+    	
+   	<span class="hljs-comment">&lt;!-- 配置一个业务逻辑Bean --&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"newsDao"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"com.hyq.transaction.dao.impl.NewsDaoImpl"</span> <span class="hljs-attr">p:ds-ref</span>=<span class="hljs-string">"dataSource"</span>/&gt;</span>
+   	
+   	<span class="hljs-comment">&lt;!-- 
+   		如果想用注解来管理事务，则可以把下面关于事务的配置注释掉，换成下面这行xml代码：
+		&lt;tx:annotation-driven/&gt;	
+		其中&lt;tx:annotation-driven/&gt;的 transaction-manager属性的默认值为transactionManager，
+		然后在dao的实现类，即NewsDaoImpl.java的class前面加上事务的注释@Transactional()，
+		这样的话，该dao实现类的所有方法都具有事务性
+   	 --&gt;</span>
+   	
+   	<span class="hljs-comment">&lt;!-- 配置事务增强处理Bean，指定事务管理器 --&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">tx:advice</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"txAdvice"</span>
+   		<span class="hljs-attr">transaction-manager</span>=<span class="hljs-string">"transactionManager"</span>&gt;</span>
+   		<span class="hljs-comment">&lt;!-- 用于配置详细的事务定义 --&gt;</span>
+   		<span class="hljs-tag">&lt;<span class="hljs-name">tx:attributes</span>&gt;</span>
+   			<span class="hljs-comment">&lt;!-- 所有以get开头的方法都是只读的 --&gt;</span>
+   			<span class="hljs-tag">&lt;<span class="hljs-name">tx:method</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"get*"</span> <span class="hljs-attr">read-only</span>=<span class="hljs-string">"true"</span>/&gt;</span>
+   			<span class="hljs-comment">&lt;!-- 其他方法用默认的事务设置，指定超时时长为5秒 --&gt;</span>
+   			<span class="hljs-tag">&lt;<span class="hljs-name">tx:method</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"*"</span> <span class="hljs-attr">isolation</span>=<span class="hljs-string">"DEFAULT"</span> <span class="hljs-attr">propagation</span>=<span class="hljs-string">"REQUIRED"</span> <span class="hljs-attr">timeout</span>=<span class="hljs-string">"5"</span>/&gt;</span>
+   		<span class="hljs-tag">&lt;/<span class="hljs-name">tx:attributes</span>&gt;</span>
+   	<span class="hljs-tag">&lt;/<span class="hljs-name">tx:advice</span>&gt;</span>
+   	
+   	<span class="hljs-comment">&lt;!-- AOP配置的元素 --&gt;</span>
+   	<span class="hljs-tag">&lt;<span class="hljs-name">aop:config</span>&gt;</span>
+   		<span class="hljs-tag">&lt;<span class="hljs-name">aop:pointcut</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">"execution(* com.hyq.transaction.dao.impl.*Impl.*(..))"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"myPointcut"</span>/&gt;</span>
+   		<span class="hljs-tag">&lt;<span class="hljs-name">aop:advisor</span> <span class="hljs-attr">advice-ref</span>=<span class="hljs-string">"txAdvice"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"myPointcut"</span>/&gt;</span>
+   	<span class="hljs-tag">&lt;/<span class="hljs-name">aop:config</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span></code></pre><p>4、定义一个测试类</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.transaction.test;
+
+<span class="hljs-keyword">import</span> org.springframework.context.ApplicationContext;
+<span class="hljs-keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;
+
+<span class="hljs-keyword">import</span> com.hyq.transaction.dao.NewsDao;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringTest</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		ApplicationContext ctx = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">"bean-transaction.xml"</span>);
+		NewsDao dao = (NewsDao)ctx.getBean(<span class="hljs-string">"newsDao"</span>,NewsDao.class);
+		dao.insert(<span class="hljs-string">"新闻标题"</span>, <span class="hljs-string">"新闻内容"</span>);
+	}
+}
+</code></pre><p>执行主程序后发现程序报错：</p><p><font color="#ff0000">Exception&nbsp;in&nbsp;thread&nbsp;"main"&nbsp;<font color="#008080">org.springframework.dao.DuplicateKeyException</font>:&nbsp;PreparedStatementCallback;&nbsp;SQL&nbsp;[insert&nbsp;into&nbsp;news_inf&nbsp;values(1,?,?)];</font></p><p><font color="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Duplicate&nbsp;entry&nbsp;'1'&nbsp;for&nbsp;key&nbsp;'PRIMARY';&nbsp;nested&nbsp;exception&nbsp;is&nbsp;com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException:</font></p><p><font color="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Duplicate&nbsp;entry&nbsp;'1'&nbsp;for&nbsp;key&nbsp;'PRIMARY'</font></p><p>这表明不能插入两条主键相同的数据。同时查看数据库发现一条数据也没发现，说明事务生效。</p><p><font size="4">附 </font>数据库表结构：</p><p><img src="/blog/files/3bc53cf0-a1fe-49db-b319-7f8568c91208.png" alt="搜狗截图20161017182715" style="max-width:100%;"></p><p><br></p><p><font face="楷体" size="4" color="#808000">注意</font>：如果要使用注解来实现事务，请看上面配置文件bean-transaction.xml中中间注释的那段说明</p><p>@Transaction注解有如下属性：</p><ul><li>isolation：用于指定事务的隔离级别。默认为底层事务的隔离级别。</li><li>noRollbackFor：指定遇到特定异常时强制不回滚事务。</li><li>noRollbackForClassName：指定遇到特定的多个异常时强制不回滚事务。该属性值可以指定多个异常类名。</li><li>propagation：指定事务的传播行为。</li><li>readOnly：指定事务是否只读。</li><li>rollbackFor：指定遇到特定异常时强制回滚事务。</li><li>rollbackForClassName：指定遇到特定的多个异常时强制回滚事务。该属性值可以指定多个异常类名。</li><li>timeout：指定事务的超时时长。</li></ul><p>如果使用@Transactional修饰Bean类，则表明这些事务设置对整个Bean类起作用；如果使用@Transactional修饰Bean类中的某个方法，则表明这些事务设置只对该方法有效。</p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-17 18:27:36.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

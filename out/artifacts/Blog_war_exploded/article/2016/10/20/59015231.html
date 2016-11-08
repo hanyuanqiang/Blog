@@ -1,0 +1,201 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            关于Java8改进的接口
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Java基础</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>0</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>Java8对接口进行了改进，允许在接口中定义默认方法，默认方法可以提供方法实现。</p><p>接口定义的基本语法如下：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1">[修饰符]  <span class="hljs-class"><span class="hljs-keyword">interface</span>  接口名  <span class="hljs-keyword">extends</span>  父接口1,父接口2...</span>{
+	零个到多个常量定义....
+	零个到多个抽象方法定义....
+	零个到多个内部类、接口、枚举定义....
+	零个到多个默认方法或类方法定义....
+}</code></pre><p>对上面语法的详细说明如下：</p><ul><li>修饰符可以是public或者省略，如果省略了public访问控制符，则默认采用包权限访问控制符，即只有在相同包结构下才能访问该接口。</li><li>接口名应与类名采用相同的命名规则。</li><li>一个接口可以有多个直接父接口，但接口只能继承接口，不能继承类。</li></ul><div><br></div><div><br></div><p>因为接口里定义的是多个类共同的公共行为规范，因此接口里的所有成员，包括常量、方法、内部类和内部枚举都是public访问权限。定义接口成员时，可以省略访问控制修饰符，如果指定访问控制修饰符，则只能使用public。例如下面两行代码的结果完全一样：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">int</span> MAX_SIZE = <span class="hljs-number">50</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_SIZE = <span class="hljs-number">50</span>;</code></pre><p><br></p><p>接口定义的方法只能是抽象方法、类方法或默认方法，因此如果不是定义默认方法，系统将自动为普通方法增加abstract修饰符；定义接口里的普通方法时不过是否使用public abstract修饰符，接口里的普通方法总是使用public abstract来修饰。普通方法不能有方法实现；但类方法、默认方法都必须有方法实现。下面定义一个接口：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.test;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span> </span>{
+
+	<span class="hljs-comment">//接口里定义的只能是常量</span>
+	<span class="hljs-keyword">int</span> MAX_NUM = <span class="hljs-number">100</span>;
+	
+	<span class="hljs-comment">//接口里定义的普通方法只能是public的抽象方法</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method01</span><span class="hljs-params">()</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">method02</span><span class="hljs-params">(String param)</span></span>;
+	
+	<span class="hljs-comment">//在接口中定义默认方法，需要使用default修饰</span>
+	<span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method03</span><span class="hljs-params">(String...msgs)</span></span>{
+		<span class="hljs-keyword">for</span>(String msg : msgs){
+			System.out.println(msg);
+		}
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method04</span><span class="hljs-params">()</span></span>{
+		System.out.println(<span class="hljs-string">"默认方法method04"</span>);
+	}
+	
+	<span class="hljs-comment">//接口中定义类方法，需要使用static修饰</span>
+	<span class="hljs-function"><span class="hljs-keyword">static</span> String <span class="hljs-title">method05</span><span class="hljs-params">()</span></span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"接口中的类方法"</span>;
+	}
+	
+}
+</code></pre><p>Java8允许在接口中定义默认方法，默认方法必须使用default修饰，默认方法不能使用static修饰，而且无论程序是否指定，默认方法总是使用public修饰符。</p><p>Java8允许在接口中定义类方法，类方法必须使用static修饰，该方法不能使用default修饰，而且无论程序是否指定，默认方法总是使用public</p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-20 21:19:36.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

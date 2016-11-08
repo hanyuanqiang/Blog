@@ -23,6 +23,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/wangEditor/dist/js/wangEditor.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/wangEditor/static/highlightjs/highlight.pack.js"></script>
 
+
     <script src="${pageContext.request.contextPath}/minicolors/jquery.minicolors.js"></script>
     <link href="${pageContext.request.contextPath}/minicolors/jquery.minicolors.css" rel="stylesheet">
 

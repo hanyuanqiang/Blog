@@ -1,0 +1,290 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            SpringAOP——使用注解实现
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Spring相关</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>0</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>AOP（Aspect Orient Programming），也就是面向切面编程，作为面向对象编程的一种补充，已经成为一种比较成熟的编程方式。AOP专门用于处理系统中分布于各个模块（不同方法）中的交叉关注点的问题，在javaEE中，常常通过AOP来处理一些具有横切性质的系统级服务，如事务管理，安全检查，缓存，对象池管理等，AOP已经成为一种非常常用的解决方案。下面通过模拟学生的CRUD来进行AOP 的简单实现：</p><p>首先使用Spring AOP 功能必须添加这三个jar包：aopalliance.jar、aspectjrt.jar、aspectjweaver.jar</p><span>1、先定义一个接口类</span><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.aspect.service;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">StudentService</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(String student)</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">delete</span><span class="hljs-params">(String student)</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">update</span><span class="hljs-params">(String student)</span></span>;
+	
+}
+</code></pre><span>2、接口的简单实现类</span><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.aspect.service.impl;
+
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+
+<span class="hljs-keyword">import</span> com.hyq.aspect.service.StudentService;
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">"studentService"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StudentServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">StudentService</span></span>{
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(String student)</span> </span>{
+		System.out.println(<span class="hljs-string">"添加学生："</span>+student);
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">delete</span><span class="hljs-params">(String student)</span> </span>{
+		System.out.println(<span class="hljs-string">"删除学生："</span>+student);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">update</span><span class="hljs-params">(String student)</span> </span>{
+		System.out.println(<span class="hljs-string">"更新学生："</span>+student);
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"student"</span>;
+	}
+	
+}
+</code></pre><span>3、定义一个切面类</span><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.aspect.advice;
+
+<span class="hljs-keyword">import</span> org.aspectj.lang.JoinPoint;
+<span class="hljs-keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.After;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.AfterReturning;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.AfterThrowing;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Around;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Aspect;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Before;
+<span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Pointcut;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@Aspect</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAspect</span> </span>{
+
+	<span class="hljs-meta">@Pointcut</span>(<span class="hljs-string">"execution(* com.hyq.aspect..*(..))"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">aspect</span><span class="hljs-params">()</span></span>{}
+	
+	<span class="hljs-meta">@Before</span>(<span class="hljs-string">"aspect()"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">(JoinPoint joinPoint)</span></span>{
+		System.out.println(<span class="hljs-string">"执行before---方法名为："</span>+joinPoint.getTarget().getClass());
+	}
+	
+	<span class="hljs-meta">@After</span>(<span class="hljs-string">"aspect()"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">after</span><span class="hljs-params">(JoinPoint joinPoint)</span></span>{
+		System.out.println(<span class="hljs-string">"执行after---类名为："</span>+joinPoint.getTarget().getClass());
+	}
+	
+	<span class="hljs-meta">@Around</span>(<span class="hljs-string">"aspect()"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">around</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable</span>{
+		System.out.println(<span class="hljs-string">"执行around(前).........."</span>);
+		Object[] args = joinPoint.getArgs();
+		<span class="hljs-keyword">if</span>(args!=<span class="hljs-keyword">null</span>&amp;&amp;args.length&gt;<span class="hljs-number">0</span>){
+			args[<span class="hljs-number">0</span>] = <span class="hljs-string">"[新增前缀]"</span>+args[<span class="hljs-number">0</span>];
+		}
+		joinPoint.proceed(args);
+		System.out.println(<span class="hljs-string">"执行around(后).........."</span>);
+	}
+	
+	<span class="hljs-meta">@AfterReturning</span>(pointcut=<span class="hljs-string">"aspect()"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterReturning</span><span class="hljs-params">(JoinPoint joinPoint)</span></span>{
+		System.out.println(<span class="hljs-string">"执行afterReturning......."</span>);
+	}
+	
+	<span class="hljs-meta">@AfterThrowing</span>(pointcut=<span class="hljs-string">"aspect()"</span>,throwing=<span class="hljs-string">"ex"</span>)
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterThrowing</span><span class="hljs-params">(JoinPoint jp,Throwable ex)</span></span>{
+		System.out.println(<span class="hljs-string">"执行afterThrowing.........."</span>);
+		System.out.println(<span class="hljs-string">"异常信息："</span>+ex.getMessage());
+	}
+	
+}
+</code></pre><span>4、定义配置文件bean-aspect.xml</span><pre style="max-width:100%;overflow-x:auto;"><code class="xml hljs" codemark="1"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"utf-8"</span><span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+	<span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans"</span>
+	<span class="hljs-attr">xmlns:aop</span>=<span class="hljs-string">"http://www.springframework.org/schema/aop"</span>
+	<span class="hljs-attr">xmlns:context</span>=<span class="hljs-string">"http://www.springframework.org/schema/context"</span>
+	<span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- 激活组件扫描功能,在包com.hyq.aspect及其子包下面自动扫描通过注解配置的组件 --&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">"com.hyq.aspect"</span>/&gt;</span>
+	<span class="hljs-comment">&lt;!-- 激活自动代理功能 --&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">aop:aspectj-autoproxy</span>/&gt;</span>
+	
+<span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span></code></pre><span>5、定义一个测试类</span><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.aspect.test;
+
+<span class="hljs-keyword">import</span> org.springframework.context.ApplicationContext;
+<span class="hljs-keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;
+
+<span class="hljs-keyword">import</span> com.hyq.aspect.service.StudentService;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AspectTest</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		ApplicationContext ctx = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">"bean-aspect.xml"</span>);
+		StudentService service = (StudentService)ctx.getBean(<span class="hljs-string">"studentService"</span>);
+		service.add(<span class="hljs-string">"张三"</span>);
+		System.out.println();
+		service.update(<span class="hljs-string">"李四"</span>);
+		System.out.println();
+		service.delete(<span class="hljs-string">"王五"</span>);
+	}
+}
+</code></pre><p>运行输出结果如下：</p><p><img src="/blog/files/cba15701-eae1-4fbb-b044-7be8713fe597.png" alt="搜狗截图" style="max-width:100%;"></p><p>至于其他要注意的参考<span><a href="/blog/article_foreDetail?articleId=21" target="_blank" style="">Spring AOP ——使用配置文件实现</a><span> <br></span></span></p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-16 22:46:13.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

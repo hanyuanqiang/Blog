@@ -1,0 +1,478 @@
+
+
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>菜鸟韩的博客</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link type="text/css" rel="stylesheet" href="/blog/css/foreground.css" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/calendar/js/jquery.min.js"></script>
+    <script src="/blog/calendar/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.dark.css">
+
+    <script>
+        function searchEvent(){
+            var searchContent = $("#articleContent").val();var typeId = $("#typeId").val();
+            window.location.href = "/blog/article_foreList.action?s_article.content="+searchContent;
+        }
+
+        function getTime(){
+            var d = new Date();
+            var my_hours=d.getHours();
+            var my_minutes=d.getMinutes();
+            var my_seconds=d.getSeconds();
+            if(my_hours<10){
+                my_hours="0"+my_hours
+            }
+            if(my_minutes<10){
+                my_minutes="0"+my_minutes
+            }
+            if(my_seconds<10){
+                my_seconds="0"+my_seconds
+            }
+            return my_hours+"&nbsp;:&nbsp;"+my_minutes+"&nbsp;:&nbsp;"+my_seconds;
+        }
+
+        function setTime(){
+            $("#time").html(getTime());
+        }
+
+        window.setInterval(setTime,1000);
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var speed = 1200;//滚动速度
+            var h=$(document).height();     //获取文档总高度
+            //回到顶部
+            $("#toTop").click(function () {
+                $('html,body').animate({
+                            scrollTop: '0px'
+                        },
+                        speed);
+            });
+            //回到底部
+
+            $("#toBottom").click(function () {
+                $('html,body').animate({
+                            scrollTop: h+'px'
+                        },
+                        speed);
+            });
+
+            //监听鼠标滚动事件，显示"回到顶部"和"回到底部"
+            $(window).scroll(function() {
+                $("#scroll").removeAttr("hidden");
+                clearTimeout(timeout);  //多次滚动时清除上次的setTimeout函数
+                timeout = setTimeout(hiddenScroll,2000);    //每次滚动完成3秒后"回到顶部"和"回到底部"隐藏
+            });
+
+
+        });
+        var timeout;
+        //隐藏"回到顶部"和"回到底部"
+        function hiddenScroll(){
+            $("#scroll").attr("hidden",true);
+        }
+
+    </script>
+
+    <style type="text/css">
+        #scroll {
+            position:fixed; top:400px; right:60px;
+        }
+        .scrollItem {
+            padding: 0px;
+            color: #00CCFF;
+            width:20px;
+            height:84px;
+            border:#e1e1e1 1px solid;
+            cursor:pointer;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="scroll" hidden>
+    <div class="scrollItem" id="toTop">回到顶部</div>
+    <p style="height: 5px;margin: 0px;"></p>
+    <div class="scrollItem" id="toBottom">回到底部</div>
+</div>
+
+<div class="index">
+    <div class="head">
+        <span id="time" style="float: right;margin: 5px 10px;font-size: 17px;"></span>
+        <p class="p1">
+            Pareto principle，也称为二八定律或80/20法则
+        </p>
+        <div class="d1">
+            <div class="dd1">
+                <input type="text" class="s_field" name="s_article.content" id="articleContent" value="" onkeydown="if(event.keyCode==13) searchEvent()">
+                <input type="button" class="s_btn" value="搜索" onclick="searchEvent()">
+            </div>
+            <div class="dd2">
+                <ul id="menu">
+                    <li><a href="/blog/">首页</a></li>
+                    <li><a href="/blog/article_foreList.action">博文目录</a></li>
+                    <li><a href="/blog/user_about_me.action">关于我</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+
+        <div class="left">
+            <div>
+                
+
+
+
+
+<script>
+    function checkForm(){
+        var commentContent = $("#commentContent").val();
+        if(!commentContent){
+            $("#errorMsg").text("请输入评论内容！");
+            $("#commentContent").focus();
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+
+<div>
+    
+    
+        <p style="height: 20px;"></p>
+    
+    <div class="over-view"  style="padding:0px 20px;">
+        <p class="title">
+        <h3 style="text-align:center;margin-top: 0px;">
+            <strong>
+                Mybatis基础 —— 分页和缓存
+            </strong>
+        </h3>
+        <p style="text-align: center;">
+            <span>类型：</span>
+            <span>MyBatis</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>浏览：</span>
+            <span>
+                0
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>来源：</span>
+            <span>原创</span>
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        </p>
+        <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p class="cye-lm-tag">MyBatis分页有两种方式：逻辑分页和物理分页。所谓逻辑分页就是先把数据库中所有数据取出放在内存中，然后从内存中获取所需要的分页数据。而物理分页则是直接从数据库中获取所需要的分页数据。具体看下面代码：</p><p class="cye-lm-tag">1、实体类Student.java</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="java hljs cye-lm-tag" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.model;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">Student</span> </span>{
+
+	<span class="hljs-keyword cye-lm-tag">private</span> Integer id;
+	<span class="hljs-keyword cye-lm-tag">private</span> String name;
+	<span class="hljs-keyword cye-lm-tag">private</span> Integer age;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">()</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-comment cye-lm-tag">// TODO Auto-generated constructor stub</span>
+	}
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">(Integer id, String name, Integer age)</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-keyword cye-lm-tag">this</span>.id = id;
+		<span class="hljs-keyword cye-lm-tag">this</span>.name = name;
+		<span class="hljs-keyword cye-lm-tag">this</span>.age = age;
+	}
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-title cye-lm-tag">Student</span><span class="hljs-params cye-lm-tag">(String name, Integer age)</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">super</span>();
+		<span class="hljs-keyword cye-lm-tag">this</span>.name = name;
+		<span class="hljs-keyword cye-lm-tag">this</span>.age = age;
+	}
+
+	<span class="hljs-annotation cye-lm-tag">@Override</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> String <span class="hljs-title cye-lm-tag">toString</span><span class="hljs-params cye-lm-tag">()</span> </span>{
+		<span class="hljs-keyword cye-lm-tag">return</span> <span class="hljs-string cye-lm-tag">"Student [id="</span> + id + <span class="hljs-string cye-lm-tag">", name="</span> + name + <span class="hljs-string cye-lm-tag">", age="</span> + age + <span class="hljs-string cye-lm-tag">"]"</span>;
+	}
+	
+	<span class="hljs-comment cye-lm-tag">/**
+	 * 这里省略了getter和setter方法
+	 */</span>
+}
+</code></pre><p class="cye-lm-tag">2、接口类StudentMapper.java</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.mappers;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.List;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.Map;
+
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.RowBounds;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">interface</span> <span class="hljs-title cye-lm-tag">StudentMapper</span> </span>{
+	<span class="hljs-comment cye-lm-tag">//逻辑分页</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">findStudents</span><span class="hljs-params cye-lm-tag">(RowBounds rowBounds)</span></span>;
+	<span class="hljs-comment cye-lm-tag">//物理分页</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">findStudents2</span><span class="hljs-params cye-lm-tag">(Map&lt;String,Object&gt; map)</span></span>;
+}
+</code></pre><p class="cye-lm-tag">3、用于接口实现的XML配置文件</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="markdown hljs cye-lm-tag" codemark="1"><span class="xml cye-lm-tag"><span class="hljs-pi cye-lm-tag">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span>
+<span class="xml cye-lm-tag"><span class="hljs-doctype cye-lm-tag">&lt;!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span>
+<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">mapper</span> <span class="hljs-attribute cye-lm-tag">namespace</span>=<span class="hljs-value cye-lm-tag">"com.hyq.mappers.StudentMapper"</span>&gt;</span></span>
+
+	<span class="xml cye-lm-tag"><span class="hljs-comment cye-lm-tag">&lt;!--
+    	1，size:表示缓存cache中能容纳的最大元素数。默认是1024；
+    	2，flushInterval:定义缓存刷新周期，以毫秒计；
+     	3，eviction:定义缓存的移除机制；默认是LRU(least recently userd，最近最少使用),还有FIFO(first in first out，先进先出)
+     	4，readOnly:默认值是false，假如是true的话，缓存只能读。
+     --&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">cache</span> <span class="hljs-attribute cye-lm-tag">size</span>=<span class="hljs-value cye-lm-tag">"1024"</span> <span class="hljs-attribute cye-lm-tag">flushInterval</span>=<span class="hljs-value cye-lm-tag">"60000"</span> <span class="hljs-attribute cye-lm-tag">eviction</span>=<span class="hljs-value cye-lm-tag">"LRU"</span> <span class="hljs-attribute cye-lm-tag">readOnly</span>=<span class="hljs-value cye-lm-tag">"false"</span>/&gt;</span></span>
+
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">resultMap</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"Student"</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">id</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"id"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"id"</span>/&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">result</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"name"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"name"</span>/&gt;</span></span>
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">result</span> <span class="hljs-attribute cye-lm-tag">property</span>=<span class="hljs-value cye-lm-tag">"age"</span> <span class="hljs-attribute cye-lm-tag">column</span>=<span class="hljs-value cye-lm-tag">"age"</span>/&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">resultMap</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"findStudents"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span>&gt;</span></span>
+		select * from t_student
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">select</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"findStudents2"</span> <span class="hljs-attribute cye-lm-tag">resultMap</span>=<span class="hljs-value cye-lm-tag">"StudentResult"</span> <span class="hljs-attribute cye-lm-tag">parameterType</span>=<span class="hljs-value cye-lm-tag">"Map"</span>&gt;</span></span>
+		select * from t_student
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">if</span> <span class="hljs-attribute cye-lm-tag">test</span>=<span class="hljs-value cye-lm-tag">"start!=null and size!=null"</span>&gt;</span></span>
+			limit #{start},#{size}
+		<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">if</span>&gt;</span></span>
+	<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">select</span>&gt;</span></span>
+	
+<span class="xml cye-lm-tag"><span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">mapper</span>&gt;</span></span> </code></pre><p class="cye-lm-tag">4、测试类</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.service;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.HashMap;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.List;
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.Map;
+
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.RowBounds;
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSession;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.mappers.StudentMapper;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.util.SqlSessionFactoryUtil;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">Test</span> </span>{
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> <span class="hljs-keyword cye-lm-tag">void</span> <span class="hljs-title cye-lm-tag">main</span><span class="hljs-params cye-lm-tag">(String[] args)</span> </span>{
+		SqlSession sqlSession = SqlSessionFactoryUtil.openSession();
+		StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+		System.out.println(<span class="hljs-string cye-lm-tag">"---------逻辑分页---------"</span>);
+		<span class="hljs-keyword cye-lm-tag">int</span> offset = <span class="hljs-number cye-lm-tag">0</span>;
+		<span class="hljs-keyword cye-lm-tag">int</span> limit =<span class="hljs-number cye-lm-tag">3</span>;
+		RowBounds rowBounds = <span class="hljs-keyword cye-lm-tag">new</span> RowBounds(offset,limit);
+		List&lt;Student&gt; studentList = studentMapper.findStudents(rowBounds);
+		studentList.forEach((student)-&gt;{
+			System.out.println(student);
+		});
+		System.out.println(<span class="hljs-string cye-lm-tag">"\n---------物理分页---------"</span>);
+		Map&lt;String , Object&gt; map = <span class="hljs-keyword cye-lm-tag">new</span> HashMap&lt;&gt;();
+		map.put(<span class="hljs-string cye-lm-tag">"start"</span>, <span class="hljs-number cye-lm-tag">4</span>);
+		map.put(<span class="hljs-string cye-lm-tag">"size"</span>, <span class="hljs-number cye-lm-tag">3</span>);
+		studentList = studentMapper.findStudents2(map);
+		studentList.forEach((student)-&gt;{
+			System.out.println(student);
+		});
+	}
+}
+</code></pre><p class="cye-lm-tag">输出结果：</p><pre style="max-width: 100%;"><code class="cs hljs" codemark="1">---------逻辑分页---------
+Student [id=<span class="hljs-number cye-lm-tag">1</span>, name=张三, age=<span class="hljs-number cye-lm-tag">12</span>]
+Student [id=<span class="hljs-number cye-lm-tag">2</span>, name=李四, age=<span class="hljs-number cye-lm-tag">11</span>]
+Student [id=<span class="hljs-number cye-lm-tag">13</span>, name=王五, age=<span class="hljs-number cye-lm-tag">12</span>]
+
+---------物理分页---------
+Student [id=<span class="hljs-number cye-lm-tag">17</span>, name=大李, age=<span class="hljs-number cye-lm-tag">14</span>]
+Student [id=<span class="hljs-number cye-lm-tag">18</span>, name=老李, age=<span class="hljs-number cye-lm-tag">15</span>]
+Student [id=<span class="hljs-number cye-lm-tag">19</span>, name=小张, age=<span class="hljs-number cye-lm-tag">16</span>]
+</code></pre><p class="cye-lm-tag"><br></p></p>
+        </p>
+        <p style="text-align: right;">
+            <span>发布日期：</span>
+            <span>2016-11-06 13:48:42.0</span>
+        </p>
+    </div>
+
+    <div id="writeComment" style="margin-top: 60px;">
+        <div style="margin: 0px 27px;">
+            <form action="/blog/comment_save.action" method="post" onsubmit="return checkForm()">
+                <input type="hidden" name="comment.article.id" value="57">
+                <p style="margin-bottom: 2px;">输入评论：</p>
+                <textarea style="width: 430px;height: 120px;background-color: transparent;border: solid 2px #73737a;margin-bottom: -7px;" name="comment.content" id="commentContent"></textarea>
+                <input type="submit" class="btn-primary" value="评论" style="margin-left: 10px;">
+                <span id="errorMsg" style="color: red;"></span>
+            </form>
+        </div>
+    </div>
+    <div id="showComment">
+        <div style="padding: 0px 25px;margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        <div class="right">
+            <div style="padding: 20px 7px;">
+                
+
+
+
+
+
+<div class="personInfo">
+    <div align="center" class="div1">
+        <div style="" class="div2">
+            <img src="/blog/files/65aaebe3-1dbe-4cdd-b26b-c6ca12ab6c00.png" class="img1"/>
+        </div>
+    </div>
+    <p style="" align="center" class="p1">
+        <a href="/blog/user_about_me.action" style="text-decoration: none;">挪威司机</a>
+    </p>
+    <div style="border-top:1px dashed #cccccc;height: 1px;overflow:hidden;margin: 5px 20px;"></div>
+    <div class="div3">
+        <div id="calendar"></div>
+        <script>
+            $('#calendar').datepicker({
+                inline: true,
+                firstDay: 1,
+                showOtherMonths: true,
+                dayNamesMin: ['日', '一', '二', '三', '四', '五', '六']
+            });
+        </script>
+    </div>
+    <p style="margin-top: 20px;"></p>
+    <div>
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/博客分类.png">&nbsp;博文分类
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=7" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Java基础&nbsp;(8)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=8" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            数据结构和算法&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=9" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Spring相关&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=10" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            学习网站收集&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=11" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            util类汇总&nbsp;(6)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=12" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            Servlet&jsp&nbsp;(3)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=13" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            一些感想&nbsp;(0)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=14" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            mysql相关&nbsp;(1)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/hand.png">
+                        <a href="/blog/article_foreList.action?s_article.type.id=15" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            MyBatis&nbsp;(4)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <p style="margin-bottom: 0px;">
+            <img src="/blog/images/日历16.png">&nbsp;博文归档
+        </p>
+        <p style="border-top:1px solid #808080;"></p>
+        <div>
+            <ul style="padding-left: 5px;">
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-11-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年11月&nbsp;(9)
+                        </a>
+                    </li>
+                
+                    <li style="list-style-type: none;margin-bottom: 10px;">
+                        <img src="/blog/images/日历2.png" style="margin-bottom: 4px;">
+                        <a href="/blog/article_foreList.action?s_article.createTime=2016-10-01 00:00:00" style="text-decoration: none;margin-left: 5px;font-size: 16px;">
+                            2016年10月&nbsp;(24)
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright &copy; 2016 挪威司机写字的地方</p>
+    </div>
+</div>
+<script src="/blog/js/jquery-2.2.1.js"></script>
+<script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

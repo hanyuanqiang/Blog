@@ -176,6 +176,96 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
         return "list";
     }
 
+    //删除生成的github的静态页面
+    public void deleteGithubHtml()throws Exception{
+        Date date = article.getCreateTime();
+        //获取文章发布时间的年月日生成存放静态页面的文件夹
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String year = String.valueOf(calendar.get(Calendar.YEAR));
+        String month = String.valueOf(calendar.get(Calendar.MONTH)+1);
+        String day = String.valueOf(calendar.get(Calendar.DATE));
+
+        String fileName = DateUtil.formatDate(article.getCreateTime(),"HHmmss")+".html";
+        String mkdirs = "G://hanyuanqiang.github.io/"+year+"/"+month+"/"+day+"/";
+        File file = new File(mkdirs+fileName);
+        if (file.exists()){
+            file.delete();
+        }
+
+        //生成github首页的链接
+        String index = getFileContent("G://hanyuanqiang.github.io/index.html");
+        StringBuffer sb = new StringBuffer(index);
+        String href = "/"+year+"/"+month+"/"+day+"/"+fileName;
+        String oneLine = "<p><a href='"+href+"'>"+article.getTitle()+"</a></p>";
+        String string = sb.toString().replace(oneLine,"");
+        file = new File("G://hanyuanqiang.github.io/index.html");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"));
+        writer.write(string);
+        writer.close();
+    }
+
+    //生成github上面显示的静态页面
+    public void genGithubHtml()throws Exception{
+        //获取用于生成github静态页面的模板内容
+        String model = getFileContent("G://hanyuanqiang.github.io/model.html");
+        //把title加入到模板的指定位置中
+        model = model.replace("ttitle",article.getTitle());
+        //把文章所属分类加入到模板指定位置
+        model = model.replace("ttype",typeService.getTypeById(article.getType().getId()).getTypeName());
+        //把文章所属来源加入到模板指定位置
+        model = model.replace("ssource",article.getSource());
+        //把文章的内容加入到模板指定文职
+        model = model.replace("ccontent",article.getContent());
+        //把发布时间加入到模板指定位置
+        model = model.replace("ppublishDate",DateUtil.formatDate(article.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+
+        Date date = article.getCreateTime();
+        //获取文章发布时间的年月日生成存放静态页面的文件夹
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String year = String.valueOf(calendar.get(Calendar.YEAR));
+        String month = String.valueOf(calendar.get(Calendar.MONTH)+1);
+        String day = String.valueOf(calendar.get(Calendar.DATE));
+
+        //生成文件名(用文章发布的时分秒)
+        String fileName = DateUtil.formatDate(article.getCreateTime(),"HHmmss")+".html";
+        //文件存放目录
+        String mkdirs = "G://hanyuanqiang.github.io/"+year+"/"+month+"/"+day+"/";
+        File file = new File(mkdirs);
+        //判断指定目录文件夹是否存在，如果不存在则生成它
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        file = new File(mkdirs+fileName); //完整的文件名路径
+        //按照指定编码把字符串写入文件中
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"));
+        writer.write(model);
+        writer.close(); //关闭流，如果不关闭的话，则程序会占用静态文件，导致无法删除
+
+        //获取github首页面的html内容
+        String index = getFileContent("G://hanyuanqiang.github.io/index.html");
+        //获取要插入链接的位置
+        int tag = index.indexOf("<p>");
+        StringBuffer sb = new StringBuffer(index);
+        //拼接超链接
+        String href = "/"+year+"/"+month+"/"+day+"/"+fileName;
+        //生成要插入的总体内容
+        String oneLine = "<p><a href='"+href+"'>"+article.getTitle()+"</a></p>";
+        if (!sb.toString().contains(oneLine)){
+            //在指定位置插入内容
+            sb.insert(tag,oneLine);
+            //再次把改变后的内容重新写入文件中
+            file = new File("G://hanyuanqiang.github.io/index.html");
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF-8"));
+            writer.write(sb.toString());
+            writer.close(); //关闭流，如果不关闭的话，则程序会占用静态文件，导致无法删除
+        }
+    }
+
     //处理生成静态页面操作
     public String backGenHtmlPage() throws Exception{
         article = articleService.getArticleById(articleId);
@@ -190,10 +280,10 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
         }else{
             result.put("errorMsg","静态页面已经存在");
         }
+        genGithubHtml();
         ResponseUtil.write(response,result);
         return null;
     }
-
 
     //删除某篇文章
     public String backdelete()throws Exception{
@@ -214,6 +304,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
             file.getAbsoluteFile().delete();
         }
 
+        deleteGithubHtml();
         articleService.delete(article);
         return "list";
     }
@@ -226,7 +317,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
         return SUCCESS;
     }
 
-    //前台获取指定id的谋篇博客
+    //前台获取指定id的某篇博客
     public String foreDetail()throws Exception{
         article = articleService.getArticleById(articleId);
         articleService.changePageViews(articleId);
@@ -293,7 +384,6 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
         pageCode = PageCode.getPageCode(articleService.getArticleCount(s_article),currentPage,Integer.parseInt(PropertiesUtil.getValue("pageSize")),action,pageParam);
         articleList = articleService.findArticleList(s_article,pageBean);
     }
-
 
 
     // 生成某篇文章的前后台对应的静态页面，并且返回新的url中的一部分，
@@ -424,6 +514,36 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
         return sb.toString().substring(0,tag)+request.getContextPath();
     }
 
+    //获取指定文件的内容
+    public String getFileContent(String fileName) throws Exception{
+        File file = new File(fileName);
+        FileInputStream input = new FileInputStream(file);
+        byte[] buffer = new byte[100000];
+        StringBuffer sb = new StringBuffer();
+        int size = 0;   //存储从流中读取的总字节数
+        boolean streamTag = true;
+        boolean flag = false;   //当第一次出现input.available()为0时，线程睡眠100(防止由于其他原因数据不完整)
+        while(streamTag){
+            int byteNumbers = input.available();    //本次从字节流中读取的字节数
+            System.out.println("本次读取字节数："+byteNumbers);
+            if(byteNumbers>0){
+                input.read(buffer, size, byteNumbers);
+                size +=byteNumbers;
+                flag = false;
+            }else if(byteNumbers==0){
+                if(!flag){
+                    Thread.sleep(100);
+                    flag=true;
+                    continue;
+                }else if(flag){
+                    streamTag = false;
+                    sb.append(new String(buffer,0,size,"utf-8"));
+                }
+            }
+        }
+        input.close();
+        return sb.toString();
+    }
 
     public void setServletRequest(HttpServletRequest request) {
         this.request = request;

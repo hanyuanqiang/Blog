@@ -1,0 +1,244 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            关于从InputStream流中读取汉字不完整的问题
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>Java基础</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>0</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p class="cye-lm-tag"><font size="3" face="宋体">最近在捣鼓通过 java.net.URL 抓取网页内容的时候，遇到一个非常奇怪的问题，就是在我抓取下来的内容中99%的字符编码都是对的，但是就是有几个地方会出现??或者???这样乱码的情况，起初我一直以为是我编码弄错了，于是换各种编码都试了一遍，结果发现用其他编码的时候网页内容是完全乱码的，只有使用原编码UTF-8的时候才能使内容基本正常显示(虽然有几个地方乱码)，所以我觉得编码没问题，就是UTF-8，但是我又有点强迫症，看到内容里面夹杂着???这样的乱码就很难受，所以我迫使自己一定要找到原因，后来通过反反复复的调试，发现乱码的地方无一不是原本应该是汉字显示的地方，而且是每次字符流读取写入的交接点，于是我就寻思着是不是编码处汉字占的字节刚好被buffer截断，然后把不完整的字节转码写入导致乱码。为了验证这个设想我就增大的buffer的数组长度，发现果然乱码的地方变了，有时候把buffer设置的足够大的话还有可能可以消除乱码。下面我将写个例子来演示乱码情况以及解决方法：</font></p><p class="cye-lm-tag"><font size="5" color="#008080">1、首先是会出现乱码的情况，代码如下：</font></p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.urlResource;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.io.InputStream;
+<span class="hljs-keyword cye-lm-tag">import</span> java.net.HttpURLConnection;
+<span class="hljs-keyword cye-lm-tag">import</span> java.net.URL;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">InputStreamTest01</span> </span>{
+
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> <span class="hljs-keyword cye-lm-tag">void</span> <span class="hljs-title cye-lm-tag">main</span><span class="hljs-params cye-lm-tag">(String[] args)</span> <span class="hljs-keyword cye-lm-tag">throws</span> Exception </span>{
+		String targetUrl = <span class="hljs-string cye-lm-tag">"http://baike.baidu.com/view/53154.htm"</span>;
+		System.out.println(method01(targetUrl));
+	}
+	
+	<span class="hljs-comment cye-lm-tag">//该方法获取的文本中可能存在乱码</span>
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> String <span class="hljs-title cye-lm-tag">method01</span><span class="hljs-params cye-lm-tag">(String targetUrl)</span> <span class="hljs-keyword cye-lm-tag">throws</span> Exception</span>{
+		URL url = <span class="hljs-keyword cye-lm-tag">new</span> URL(targetUrl);
+		HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+		InputStream input = urlConnection.getInputStream();	<span class="hljs-comment cye-lm-tag">//获取输入流</span>
+		<span class="hljs-keyword cye-lm-tag">byte</span>[] buffer = <span class="hljs-keyword cye-lm-tag">new</span> <span class="hljs-keyword cye-lm-tag">byte</span>[<span class="hljs-number cye-lm-tag">1024</span>];
+		<span class="hljs-keyword cye-lm-tag">int</span> hasRead = <span class="hljs-number cye-lm-tag">0</span>;
+		StringBuffer sb = <span class="hljs-keyword cye-lm-tag">new</span> StringBuffer();
+		<span class="hljs-keyword cye-lm-tag">while</span>((hasRead=input.read(buffer))!=-<span class="hljs-number cye-lm-tag">1</span>){
+			<span class="hljs-comment cye-lm-tag">//把buffer数组按照UTF-8编码转换为字符串，并且追加到sb中</span>
+			sb.append(<span class="hljs-keyword cye-lm-tag">new</span> String(buffer,<span class="hljs-number cye-lm-tag">0</span>,hasRead,<span class="hljs-string cye-lm-tag">"utf-8"</span>));
+		}
+		input.close();
+		<span class="hljs-keyword cye-lm-tag">return</span> sb.toString();
+	}
+	
+}
+</code></pre><p class="cye-lm-tag">上面程序输入内容中存在如下几处乱码：</p><p class="cye-lm-tag"><img src="/blog/files/ae22e487-f04e-4233-96c3-840d1091760e.png" alt="搜狗截图20161101192801" style="max-width:100%;" class="">&nbsp; &nbsp;</p><p class="cye-lm-tag"><img src="/blog/files/660d08ca-59df-43ae-a510-4f723b486471.png" alt="搜狗截图20161101192154" style="max-width: 100%;"></p><p class="cye-lm-tag"><img src="/blog/files/6b9530ab-9e91-476e-b5a4-5b2d88203277.png" alt="搜狗截图20161101192226" style="max-width: 100%;"></p><p class="cye-lm-tag"><img src="/blog/files/701c83e3-9c24-4857-affe-c4c0321e2ef5.png" alt="搜狗截图20161101192207" style="max-width: 100%;"></p><p>可以看出出现乱码的地方都原本应该是单个汉字出现的地方，个人猜想可能原因是上面代码中input.read(buffer)读取字符流的时候，本次读取刚好把某个汉字的字符流截断，导致后面转码失败，出现乱码。</p><p><br></p><p><font size="5" color="#008080">2、改进读取字符流的方法，代码如下：</font></p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.urlResource;
+
+<span class="hljs-keyword">import</span> java.io.InputStream;
+<span class="hljs-keyword">import</span> java.net.HttpURLConnection;
+<span class="hljs-keyword">import</span> java.net.URL;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InputStreamTest02</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+		String targetUrl = <span class="hljs-string">"http://baike.baidu.com/view/53154.htm"</span>;
+		System.out.println(method02(targetUrl));
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">method02</span><span class="hljs-params">(String targetUrl)</span> <span class="hljs-keyword">throws</span> Exception</span>{
+		URL url = <span class="hljs-keyword">new</span> URL(targetUrl);
+		HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+		InputStream input = urlConnection.getInputStream();	<span class="hljs-comment">//获取输入流</span>
+
+		StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer();
+		<span class="hljs-keyword">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">627560</span>];
+		<span class="hljs-keyword">int</span> size = <span class="hljs-number">0</span>;   <span class="hljs-comment">//存储从流中读取的总字节数</span>
+		<span class="hljs-keyword">boolean</span> streamTag = <span class="hljs-keyword">true</span>;
+		<span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">false</span>;   
+		<span class="hljs-keyword">while</span>(streamTag){
+			<span class="hljs-keyword">int</span> byteNumbers = input.available();    <span class="hljs-comment">//本次从字节流中读取的字节数</span>
+			System.out.println(<span class="hljs-string">"本次读取字节数："</span>+byteNumbers);
+			<span class="hljs-keyword">if</span>(byteNumbers&gt;<span class="hljs-number">0</span>){
+				input.read(buffer, size, byteNumbers);
+				size +=byteNumbers;
+				flag = <span class="hljs-keyword">false</span>;
+			}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(byteNumbers==<span class="hljs-number">0</span>){
+				<span class="hljs-comment">//第一次读取字节数为0时，线程睡眠700，防止由于网络原因造成判别错误</span>
+				<span class="hljs-comment">//连续两次读取字节数均为0则表示InputStream中的字节流读取完毕</span>
+				<span class="hljs-keyword">if</span>(!flag){
+					Thread.sleep(<span class="hljs-number">700</span>);
+					flag=<span class="hljs-keyword">true</span>;
+					<span class="hljs-keyword">continue</span>;
+				}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag){
+					streamTag = <span class="hljs-keyword">false</span>;
+					sb.append(<span class="hljs-keyword">new</span> String(buffer,<span class="hljs-number">0</span>,size,<span class="hljs-string">"utf-8"</span>));
+				}
+			}
+		}
+		input.close();
+		<span class="hljs-keyword">return</span> sb.toString();
+	}
+
+}
+</code></pre><p>可以看到控制台有如下输出：</p><p><img src="/blog/files/a9b358f2-7d07-4b10-b080-7866d9dc828a.png" alt="搜狗截图20161101194531" style="max-width:100%;"></p><p>可看出buffer每次从输入流中读取的数据都有可能不一样，所以该问题的解决办法本质上是先不输入流中的所有字节读取到buffer中，然后统一转码为utf-8格式的字符串，这样就不会出现局部乱码问题。</p><p>值得注意的是，上面程序中出现了用Thread.sleep(700)，使用线程睡眠是为了防止由于读取速度过快导致读取的字节数为零(如上面输出结果中有些读取操作就为0)，适当延迟是为了从输入流中读取更多的字节数。上面程序只有当两次读取均为0字节时才认为输入流中的字节全部读取完毕。</p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-11-01 19:14:25.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,8 @@
 package com.hyq.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 /**
  * 字符串工具类
  * @author

@@ -1,0 +1,387 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            MyBatis入门
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>MyBatis</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>11</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p class="cye-lm-tag">首先给出一个使用MyBatis操作数据库的主程序，然后进行具体分析，主程序代码如下：</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="javascript hljs cye-lm-tag" codemark="1">package com.hyq.service;
+
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSession;
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.log4j.Logger;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.mappers.StudentMapper;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.util.SqlSessionFactoryUtil;
+
+public <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">StudentTest</span> </span>{
+	private static Logger logger = Logger.getLogger(StudentTest.class);
+	public static <span class="hljs-keyword cye-lm-tag">void</span> main(<span class="hljs-built_in cye-lm-tag">String</span>[] args) {
+		SqlSession sqlSession = SqlSessionFactoryUtil.openSession();
+		StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+		Student student = <span class="hljs-keyword cye-lm-tag">new</span> Student(<span class="hljs-string cye-lm-tag">"王五"</span>,<span class="hljs-number cye-lm-tag">33</span>);
+		int result = studentMapper.add(student);
+		sqlSession.commit();
+		<span class="hljs-keyword cye-lm-tag">if</span>(result&gt;<span class="hljs-number cye-lm-tag">0</span>){
+			logger.info(<span class="hljs-string cye-lm-tag">"添加成功"</span>);
+		}
+	}
+}
+</code></pre><p class="cye-lm-tag">下面是上面代码的具体实现：</p><p class="cye-lm-tag">1、获取SqlSession的工具类，即上面代码中的：</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="java hljs cye-lm-tag" codemark="1">SqlSession sqlSession = SqlSessionFactoryUtil.openSession();</code></pre><p class="cye-lm-tag">其中SqlSessionFactoryUtil类的代码如下：</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="java hljs cye-lm-tag" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.util;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.io.InputStream;
+
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.io.Resources;
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSession;
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSessionFactory;
+<span class="hljs-keyword cye-lm-tag">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">class</span> <span class="hljs-title cye-lm-tag">SqlSessionFactoryUtil</span> </span>{
+
+	<span class="hljs-keyword cye-lm-tag">private</span> <span class="hljs-keyword cye-lm-tag">static</span> SqlSessionFactory sqlSessionFactory;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> SqlSessionFactory <span class="hljs-title cye-lm-tag">getSqlSessionFactory</span><span class="hljs-params cye-lm-tag">()</span></span>{
+		<span class="hljs-keyword cye-lm-tag">if</span>(sqlSessionFactory==<span class="hljs-keyword cye-lm-tag">null</span>){
+			InputStream input = <span class="hljs-keyword cye-lm-tag">null</span>;
+			<span class="hljs-keyword cye-lm-tag">try</span>{
+				input = Resources.getResourceAsStream(<span class="hljs-string cye-lm-tag">"mybatis-config.xml"</span>);
+				sqlSessionFactory = <span class="hljs-keyword cye-lm-tag">new</span> SqlSessionFactoryBuilder().build(input);
+			}<span class="hljs-keyword cye-lm-tag">catch</span>(Exception e){
+				e.printStackTrace();
+			}
+		}
+		<span class="hljs-keyword cye-lm-tag">return</span> sqlSessionFactory;
+	}
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">static</span> SqlSession <span class="hljs-title cye-lm-tag">openSession</span><span class="hljs-params cye-lm-tag">()</span></span>{
+		<span class="hljs-keyword cye-lm-tag">return</span> getSqlSessionFactory().openSession();
+	}
+}
+</code></pre><p class="cye-lm-tag">其中mybatis-config.xml位于项目的根目录，具体内容如下：</p><pre style="max-width: 100%;"><code class="xml hljs" codemark="1"><span class="hljs-pi cye-lm-tag">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-doctype cye-lm-tag">&lt;!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span>
+<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">configuration</span>&gt;</span>
+	<span class="hljs-comment cye-lm-tag">&lt;!-- 下面是配置properties的两种方式，推荐使用第一种 --&gt;</span>
+	<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">properties</span> <span class="hljs-attribute cye-lm-tag">resource</span>=<span class="hljs-value cye-lm-tag">"jdbc.properties"</span>/&gt;</span>
+	<span class="hljs-comment cye-lm-tag">&lt;!-- &lt;properties&gt;
+		&lt;property name="jdbc.driverClassName" value="com.mysql.jdbc.Driver"/&gt;
+		&lt;property name="jdbc.url" value="jdbc:mysql://localhost:3306/db_mybatis"/&gt;
+		&lt;property name="jdbc.username" value="root"/&gt;
+		&lt;property name="jdbc.password" value="123456"/&gt;
+	&lt;/properties&gt; --&gt;</span>
+	
+	<span class="hljs-comment cye-lm-tag">&lt;!-- 下面是配置别名的两种方式，推荐使用第二种 --&gt;</span>
+	<span class="hljs-comment cye-lm-tag">&lt;!--
+	&lt;typeAliases&gt;
+		&lt;typeAlias alias="Student" type="com.hyq.model.Student"/&gt;
+	&lt;/typeAliases&gt;
+	 --&gt;</span>
+	<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">typeAliases</span>&gt;</span>
+	<span class="hljs-comment cye-lm-tag">&lt;!-- 扫描指定的包，把该包下面的类名作为别名 --&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">package</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"com.hyq.model"</span>/&gt;</span>
+	<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">typeAliases</span>&gt;</span>
+	
+	<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">environments</span> <span class="hljs-attribute cye-lm-tag">default</span>=<span class="hljs-value cye-lm-tag">"development"</span>&gt;</span>
+		<span class="hljs-comment cye-lm-tag">&lt;!-- 配置多种环境，其中默认为开发环境 --&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">environment</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"development"</span>&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">transactionManager</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"JDBC"</span> /&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">dataSource</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"POOLED"</span>&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"driver"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.driverClassName}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"url"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.url}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"username"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.username}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"password"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.password}"</span> /&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">dataSource</span>&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">environment</span>&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">environment</span> <span class="hljs-attribute cye-lm-tag">id</span>=<span class="hljs-value cye-lm-tag">"test"</span>&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">transactionManager</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"JDBC"</span>/&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">dataSource</span> <span class="hljs-attribute cye-lm-tag">type</span>=<span class="hljs-value cye-lm-tag">"POOLED"</span>&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"driver"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.driverClassName}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"url"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.url}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"username"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.username}"</span> /&gt;</span>
+				<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">property</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"password"</span> <span class="hljs-attribute cye-lm-tag">value</span>=<span class="hljs-value cye-lm-tag">"${jdbc.password}"</span> /&gt;</span>
+			<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">dataSource</span>&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">environment</span>&gt;</span>
+	<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">environments</span>&gt;</span>
+	
+	<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">mappers</span>&gt;</span>
+		<span class="hljs-comment cye-lm-tag">&lt;!-- 下面是配置mapper的三种方式，推荐使用第三种 --&gt;</span>
+		<span class="hljs-comment cye-lm-tag">&lt;!-- &lt;mapper resource="com/hyq/mappers/StudentMapper.xml" /&gt; --&gt;</span>
+		<span class="hljs-comment cye-lm-tag">&lt;!-- &lt;mapper class="com.hyq.mappers.StudentMapper"/&gt; --&gt;</span>
+		<span class="hljs-tag cye-lm-tag">&lt;<span class="hljs-title cye-lm-tag">package</span> <span class="hljs-attribute cye-lm-tag">name</span>=<span class="hljs-value cye-lm-tag">"com.hyq.mappers"</span>/&gt;</span>
+	<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">mappers</span>&gt;</span>
+<span class="hljs-tag cye-lm-tag">&lt;/<span class="hljs-title cye-lm-tag">configuration</span>&gt;</span>
+</code></pre><p class="cye-lm-tag">而其中上面的jdbc.properties文件(同样放在根目录)的内容如下：</p><pre style="max-width: 100%;"><code class="cs hljs" codemark="1">jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql:<span class="hljs-comment cye-lm-tag">//localhost:3306/db_mybatis</span>
+jdbc.username=root
+jdbc.password=<span class="hljs-number cye-lm-tag">123456</span></code></pre><p class="cye-lm-tag"><br></p><p class="cye-lm-tag">2、上面主程序中的如下代码：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1">StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</code></pre><p class="cye-lm-tag">其中StudentMapper接口代码为：</p><pre style="max-width: 100%;" class="cye-lm-tag"><code class="java hljs cye-lm-tag" codemark="1"><span class="hljs-keyword cye-lm-tag">package</span> com.hyq.mappers;
+
+<span class="hljs-keyword cye-lm-tag">import</span> java.util.List;
+
+<span class="hljs-keyword cye-lm-tag">import</span> com.hyq.model.Student;
+
+<span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-class cye-lm-tag"><span class="hljs-keyword cye-lm-tag">interface</span> <span class="hljs-title cye-lm-tag">StudentMapper</span> </span>{
+
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">int</span> <span class="hljs-title cye-lm-tag">add</span><span class="hljs-params cye-lm-tag">(Student student)</span></span>;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">int</span> <span class="hljs-title cye-lm-tag">update</span><span class="hljs-params cye-lm-tag">(Student student)</span></span>;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> <span class="hljs-keyword cye-lm-tag">int</span> <span class="hljs-title cye-lm-tag">delete</span><span class="hljs-params cye-lm-tag">(Integer id)</span></span>;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> Student <span class="hljs-title cye-lm-tag">findById</span><span class="hljs-params cye-lm-tag">(Integer id)</span></span>;
+	
+	<span class="hljs-function cye-lm-tag"><span class="hljs-keyword cye-lm-tag">public</span> List&lt;Student&gt; <span class="hljs-title cye-lm-tag">find</span><span class="hljs-params cye-lm-tag">()</span></span>;
+	
+}
+</code></pre><p class="cye-lm-tag">同时还需要一个xml文件用于实现该接口，即StudentMapper.xml，代码如下：</p><pre style="max-width: 100%;"><code class="xml hljs" codemark="1"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-doctype">&lt;!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">mapper</span> <span class="hljs-attribute">namespace</span>=<span class="hljs-value">"com.hyq.mappers.StudentMapper"</span>&gt;</span>
+	
+	<span class="hljs-comment">&lt;!--
+		下面这个标签标示一种结果集 ，该标签里面的autoMapping属性默认为true，即自动映射
+		所以该标签里面的三个子标签加不加都一样，但如果autoMapping设为false的话，则一定要加上
+	--&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">resultMap</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"Student"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"StudentResult"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">id</span> <span class="hljs-attribute">property</span>=<span class="hljs-value">"id"</span> <span class="hljs-attribute">column</span>=<span class="hljs-value">"id"</span>/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">result</span> <span class="hljs-attribute">property</span>=<span class="hljs-value">"name"</span> <span class="hljs-attribute">column</span>=<span class="hljs-value">"name"</span>/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">result</span> <span class="hljs-attribute">property</span>=<span class="hljs-value">"age"</span> <span class="hljs-attribute">column</span>=<span class="hljs-value">"age"</span>/&gt;</span>
+		<span class="hljs-comment">&lt;!-- 上面三个标签可加可不加 --&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-title">resultMap</span>&gt;</span>
+	
+	<span class="hljs-comment">&lt;!-- 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面标签中的id对应接口中的方法名，parameterType对应方法的参数类型，
+		如果需要多个参数，则通常把多个参数放在map中，然后把map传入方法中 
+	--&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">insert</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"add"</span> <span class="hljs-attribute">parameterType</span>=<span class="hljs-value">"Student"</span>&gt;</span>
+		insert into t_student(id,name,age) values(null,#{name},#{age})
+	<span class="hljs-tag">&lt;/<span class="hljs-title">insert</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-title">update</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"update"</span> <span class="hljs-attribute">parameterType</span>=<span class="hljs-value">"Student"</span>&gt;</span>
+		update t_student set name=#{name},age=#{age} where id=#{id}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">update</span>&gt;</span>
+	
+	<span class="hljs-tag">&lt;<span class="hljs-title">delete</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"delete"</span> <span class="hljs-attribute">parameterType</span>=<span class="hljs-value">"Integer"</span>&gt;</span>
+		delete from t_student where id=#{id}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">delete</span>&gt;</span>
+	
+	<span class="hljs-comment">&lt;!-- 下面标签中的resultType表示该接口返回值的类型 --&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"findById"</span> <span class="hljs-attribute">parameterType</span>=<span class="hljs-value">"Integer"</span> <span class="hljs-attribute">resultType</span>=<span class="hljs-value">"Student"</span> &gt;</span>
+		select * from t_student where id=#{id}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
+	
+	<span class="hljs-comment">&lt;!-- 下面标签中的resultMap表示该接口返回的是一个集合 --&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"find"</span> <span class="hljs-attribute">resultMap</span>=<span class="hljs-value">"StudentResult"</span>&gt;</span>
+		select * from t_student
+	<span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">mapper</span>&gt;</span> </code></pre><p class="cye-lm-tag">通过上面这个配置文件，MyBatis会自动给StudentMapper接口提供具体的实现。</p><p class="cye-lm-tag">最后附上Student.java类：</p><pre style="max-width: 100%;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.model;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>{
+
+	<span class="hljs-keyword">private</span> Integer id;
+	<span class="hljs-keyword">private</span> String name;
+	<span class="hljs-keyword">private</span> Integer age;
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">super</span>();
+		<span class="hljs-comment">// TODO Auto-generated constructor stub</span>
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">(Integer id, String name, Integer age)</span> </span>{
+		<span class="hljs-keyword">super</span>();
+		<span class="hljs-keyword">this</span>.id = id;
+		<span class="hljs-keyword">this</span>.name = name;
+		<span class="hljs-keyword">this</span>.age = age;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">(String name, Integer age)</span> </span>{
+		<span class="hljs-keyword">super</span>();
+		<span class="hljs-keyword">this</span>.name = name;
+		<span class="hljs-keyword">this</span>.age = age;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getId</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> id;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setId</span><span class="hljs-params">(Integer id)</span> </span>{
+		<span class="hljs-keyword">this</span>.id = id;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> name;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>{
+		<span class="hljs-keyword">this</span>.name = name;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getAge</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> age;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(Integer age)</span> </span>{
+		<span class="hljs-keyword">this</span>.age = age;
+	}
+
+	<span class="hljs-annotation">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"Student [id="</span> + id + <span class="hljs-string">", name="</span> + name + <span class="hljs-string">", age="</span> + age + <span class="hljs-string">"]"</span>;
+	}
+
+}
+</code></pre><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-11-05 01:01:00.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

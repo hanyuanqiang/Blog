@@ -1,0 +1,201 @@
+
+
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="shortcut icon"type="image/x-icon" href="/blog/images/1111.ico"media="screen" />
+    <link href="/blog/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/blog/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <script src="/blog/js/jquery-2.2.1.js"></script>
+    <script src="/blog/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/blog/layer/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/dist/css/wangEditor.css">
+    <link rel="stylesheet" type="text/css" href="/blog/wangEditor/static/highlightjs/atelier-heath.light.css">
+    <script type="text/javascript" src="/blog/wangEditor/dist/js/wangEditor.js"></script>
+    <script type="text/javascript" src="/blog/wangEditor/static/highlightjs/highlight.pack.js"></script>
+
+
+    <script src="/blog/minicolors/jquery.minicolors.js"></script>
+    <link href="/blog/minicolors/jquery.minicolors.css" rel="stylesheet">
+
+    <script language=javascript>
+        requestBeckground();
+        function requestBeckground(bgColor){
+            $.post("/blog/sess_backlistener.action",{bgColor:bgColor},function(result){
+
+            },"json");
+        }
+        window.setInterval(requestBeckground,1000*60*2);      //每个两分钟请求一次后台
+
+        $(document).ready( function() {
+
+            $('.demo').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'hue',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    change: function(hex, opacity) {
+                        if( !hex ) return;
+                        if( opacity ) hex += ', ' + opacity;
+                        try {
+                            console.log(hex);
+                        } catch(e) {}
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+
+            $("#changeColor").blur(function(){
+                $("body").css("background-color",$(".minicolors-swatch-color").css("background-color"));
+                requestBeckground($(".minicolors-swatch-color").css("background-color"));
+            });
+
+        });
+    </script>
+
+    <style type="text/css">
+        .ddvid {
+            width:100%;
+            height:100%;
+            overflow-y:scroll;
+            overflow-x:auto;
+        }
+    </style>
+</head>
+<body style="background-color: #d6d6cf;">
+
+    
+
+
+
+
+
+    <div class="ddvid">
+        <div style="border: 1px #13262a solid;margin:30px auto;width: 1250px;">
+            <div style="float: left;width: 200px;border: 1px rebeccapurple solid;padding: 20px 30px;position: absolute;">
+                <ul class="list-unstyled">
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backlist.action">博客管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/article_backwrite.action">撰写博客</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/type_backlist.action">分类管理</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backupdate.action">个人中心</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/wisdom_backlist.action">至理名言</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/leaveWords_backlist.action">
+                            游客留言
+                            
+                        </a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/user_backexit.action"  onclick="return confirm('确定退出系统？')">退出系统</a>
+                    </li>
+                    <li style="margin-top: 20px;">
+                        <a href="/blog/system_backrefresh.action">刷新服务器缓存</a>
+                    </li>
+
+                    <li style="margin-top: 20px;">
+                        <a class="demo" href="#" value="#2922ff" id="changeColor">更改背景颜色</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div style="border: 1px #2922ff solid;float:left;width: 1025px;margin-left: 220px;">
+                
+
+
+
+
+<div class="over-view"  style="padding:20px 30px;">
+    <p class="title">
+    <h3 style="text-align:center;">
+        <strong>
+            提取html代码中的纯文本：HtmlUtil.java
+        </strong>
+    </h3>
+    <p style="text-align: center;">
+        <span>类型：</span>
+        <span>util类汇总</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>浏览：</span>
+        <span>2</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>来源：</span>
+        <span>原创</span>
+    </p>
+    <p style="border-top:1px solid #808080;"></p>
+    </p>
+    <p class="main"><p style="font-size: 120%;text-indent:2em;" id=main><p>在些项目过程中，我们有时候需要提取html代码中的纯文本内容，忽略其中的标签。这个工具类的作用就是提取html代码中的纯文本。首先，在写代码之前要先添加这两个jar包：<a href="https://mvnrepository.com/artifact/org.htmlparser/htmllexer/2.1" target="_blank" style="">htmllexer-2.1.jar</a>、<a href="https://mvnrepository.com/artifact/org.htmlparser/htmlparser/2.1" target="_blank" style="">htmlparser-2.1.jar</a>。具体代码如下：</p><pre style="max-width:100%;overflow-x:auto;"><code class="java hljs" codemark="1"><span class="hljs-keyword">package</span> com.hyq.util;
+
+<span class="hljs-keyword">import</span> org.htmlparser.Parser;
+<span class="hljs-keyword">import</span> org.htmlparser.visitors.TextExtractingVisitor;
+
+<span class="hljs-comment">/**
+ * Created by Administrator on 2016/7/20.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HtmlUtil</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception</span>{
+		String htmlText01 = <span class="hljs-string">"&lt;div id='signals' class='content'&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-align: center;'&gt;"</span>+
+				<span class="hljs-string">"&lt;img src='http://tu.qiumibao.com/uploads/day_161022/201610221022518879.png'"</span>+
+				<span class="hljs-string">"alt=''&gt;&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;北京时间10月22日，快船球星布雷克-格里芬在接受采访时表示，自己已经完全恢复健康，并且感觉状态不错。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;“我感觉不错，就像在过去几年的感觉一样，事实上还是有点吃惊的，”格里芬说到。“训练营的时候感觉不错，但你永远不知道在实际比赛中的情况和高强度训练下会有什么反应。但我感觉还不错。”&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;快船明星前锋上赛季因伤仅打了35场常规赛比赛，又在季后赛中再次受伤，他在今年4月底接受了左腿股四头肌撕裂修复手术。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;格里芬在季前赛场均23.1分钟可以贡献16.4分5.6篮板，格里芬表示，自己现在的心态和状态都还不错。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;“打过了背靠背的比赛或者连续几天艰苦训练后打比赛，仍然在第二天感觉不错。我仍然可以投入训练，甚至做得更多，这些都让我很放心。”格里芬说到。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;格里芬也表示，他在今夏恢复健康后改变了一些自己的训练习惯。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;“(伤病)触发了所有的事情，”格里芬说到。“可能双腿会承担更大的重量，过去几个赛季我都没这么做，但今夏重新这么做了。”格里芬说到。&lt;/p&gt;"</span>+
+				<span class="hljs-string">"&lt;p style='text-indent: 2em;'&gt;(Gankson)&lt;/p&gt;&lt;/div&gt;"</span>;
+
+		String result = getHtmlParser(htmlText01);
+		System.out.println(result);
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getHtmlParser</span><span class="hljs-params">(String string)</span><span class="hljs-keyword">throws</span> Exception</span>{
+		Parser parser = <span class="hljs-keyword">new</span> Parser(string);
+		TextExtractingVisitor visitor = <span class="hljs-keyword">new</span> TextExtractingVisitor();
+		parser.visitAllNodesWith(visitor);
+		<span class="hljs-keyword">return</span> visitor.getExtractedText();
+	}
+}
+</code></pre><p>输出结果为：</p><pre style="max-width:100%;overflow-x:auto;"><code class="apache hljs" codemark="1">北京时间<span class="hljs-keyword">10</span>月22日，快船球星布雷克-格里芬在接受采访时表示，自己已经完全恢复健康，并且感觉状态不错。“我感觉不错，就像在过去几年的感觉一样，事实上还是有点吃惊的，”格里芬说到。“训练营的时候感觉不错，但你永远不知道在实际比赛中的情况和高强度训练下会有什么反应。但我感觉还不错。”快船明星前锋上赛季因伤仅打了35场常规赛比赛，又在季后赛中再次受伤，他在今年4月底接受了左腿股四头肌撕裂修复手术。格里芬在季前赛场均23.1分钟可以贡献16.4分5.6篮板，格里芬表示，自己现在的心态和状态都还不错。“打过了背靠背的比赛或者连续几天艰苦训练后打比赛，仍然在第二天感觉不错。我仍然可以投入训练，甚至做得更多，这些都让我很放心。”格里芬说到。格里芬也表示，他在今夏恢复健康后改变了一些自己的训练习惯。“(伤病)触发了所有的事情，”格里芬说到。“可能双腿会承担更大的重量，过去几个赛季我都没这么做，但今夏重新这么做了。”格里芬说到。(Gankson)
+</code></pre><p>从上面结果可以看出，夹杂大量标签的html代码经过工具类处理后只输出标签中的纯文本内容。<br></p><p><br></p></p>
+    </p>
+    <p style="text-align: right;">
+        <span>发布日期：</span>
+        <span>2016-10-22 13:55:56.0</span>
+    </p>
+    <div id="showComment">
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 0px;">
+                <img src="/blog/images/评论.png">&nbsp;网友评论
+            </p>
+            <p style="border-top:2px solid #808080;"></p>
+
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
