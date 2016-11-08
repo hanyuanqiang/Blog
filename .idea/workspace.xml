@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1a19db9-eb14-4007-8c6e-ce89f9342337" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Blog_war/Blog_war.war" afterPath="$PROJECT_DIR$/out/artifacts/Blog_war/Blog_war.war" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Blog_war_exploded/background/main.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Blog_war_exploded/background/main.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/hyq/action/ArticleAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/hyq/action/ArticleAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/hyq/action/UploadFile.java" afterPath="$PROJECT_DIR$/src/main/java/com/hyq/action/UploadFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/hyq/util/StringUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/hyq/util/StringUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/background/main.jsp" afterPath="$PROJECT_DIR$/web/background/main.jsp" />
     </list>
     <ignored path="Blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,13 +26,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ArticleAction.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ArticleAction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hyq/action/ArticleAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3772973">
-              <caret line="523" column="33" selection-start-line="523" selection-start-column="33" selection-end-line="523" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="519" column="48" selection-start-line="519" selection-start-column="48" selection-end-line="519" selection-end-column="48" />
               <folding>
                 <element signature="method#backwrite#0;class#ArticleAction#0" expanded="false" />
+                <element signature="method#deleteGithubHtml#0;class#ArticleAction#0" expanded="false" />
+                <element signature="method#genGithubHtml#0;class#ArticleAction#0" expanded="false" />
                 <element signature="method#backGenHtmlPage#0;class#ArticleAction#0" expanded="false" />
                 <element signature="method#backdelete#0;class#ArticleAction#0" expanded="false" />
                 <element signature="method#backdetail#0;class#ArticleAction#0" expanded="false" />
@@ -51,6 +47,16 @@
                 <element signature="method#getFilePathByUrl#0;class#ArticleAction#0" expanded="false" />
                 <element signature="method#getHostAndProjectName#0;class#ArticleAction#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SendMailUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hyq/util/SendMailUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42918918">
+              <caret line="31" column="52" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -980,12 +986,12 @@
       <workItem from="1478265482704" duration="5195000" />
       <workItem from="1478310494136" duration="6412000" />
       <workItem from="1478391021642" duration="12256000" />
-      <workItem from="1478572517721" duration="18832000" />
+      <workItem from="1478572517721" duration="19368000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="567651000" />
+    <option name="totallyTimeSpent" value="568187000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-127" y="-1125" width="1966" height="1086" extended-state="0" />
@@ -1098,13 +1104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hyq/util/SendMailUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48108107">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1454,10 +1453,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hyq/action/ArticleAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3772973">
-          <caret line="523" column="33" selection-start-line="523" selection-start-column="33" selection-end-line="523" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="519" column="48" selection-start-line="519" selection-start-column="48" selection-end-line="519" selection-end-column="48" />
           <folding>
             <element signature="method#backwrite#0;class#ArticleAction#0" expanded="false" />
+            <element signature="method#deleteGithubHtml#0;class#ArticleAction#0" expanded="false" />
+            <element signature="method#genGithubHtml#0;class#ArticleAction#0" expanded="false" />
             <element signature="method#backGenHtmlPage#0;class#ArticleAction#0" expanded="false" />
             <element signature="method#backdelete#0;class#ArticleAction#0" expanded="false" />
             <element signature="method#backdetail#0;class#ArticleAction#0" expanded="false" />
@@ -1470,6 +1471,14 @@
             <element signature="method#getFilePathByUrl#0;class#ArticleAction#0" expanded="false" />
             <element signature="method#getHostAndProjectName#0;class#ArticleAction#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hyq/util/SendMailUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42918918">
+          <caret line="31" column="52" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
